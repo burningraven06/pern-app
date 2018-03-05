@@ -1,0 +1,28 @@
+{
+  "name": "react-node-express-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "client": "cd react_node_express_app && npm start",
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluescorpx93/fcc-node-react-pa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bluescorpx93/fcc-node-react-pa/issues"
+  },
+  "homepage": "https://github.com/bluescorpx93/fcc-node-react-pa#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
