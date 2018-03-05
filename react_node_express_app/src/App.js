@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
   state = {
@@ -10,7 +8,7 @@ class App extends Component {
     this.callApi().then(res => this.setState({ myMsg: res.backMsg})).catch(err => console.log(err));
   }
 
-  callApi(){
+  callApi = async() =>{
     const response = await fetch('/api/hello');
     const body = await response.json();
     
@@ -18,11 +16,12 @@ class App extends Component {
 
     return body;
   };
-  
+
   render() {
     return (
       <div className="App">
-        
+        <h1> React App </h1>
+        <h4> {this.state.myMsg} </h4>
       </div>
     );
   }
