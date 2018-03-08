@@ -4,12 +4,17 @@ import CarComp from './components/carComp';
 import FruitComp from './components/fruitComp';
 
 class App extends Component {
-  state = {
-    myMsg: "",
-    myCars: [],
-    myFruits: [],
-    showCars: false,
-    showFruits: false
+  constructor(){
+    super();
+    this.state = {
+      myMsg: "",
+      myCars: [],
+      myFruits: [],
+      showCars: false,
+      showFruits: false
+    }
+    this.toggleMyCars = this.toggleMyCars.bind(this);
+    this.toggleMyFruits = this.toggleMyFruits.bind(this);
   }
 
   componentDidMount(){
@@ -43,6 +48,18 @@ class App extends Component {
     if (response.status!==200) throw Error(resBody.message);
     return resBody;
   }
+  
+  toggleMyCars(){
+    this.setState({
+      showCars: !this.state.showCars
+    })
+  }
+
+  toggleMyFruits(){
+    this.setState({
+      showFruits: !this.state.showFruits
+    })
+  }
 
   render() {
     return (
@@ -50,11 +67,17 @@ class App extends Component {
         <h1> React App </h1>
         
         <h4> <MessageComp msgText={this.state.myMsg}/> </h4> 
-        <CarComp theCars={this.state.myCars}/>
-        <FruitComp theFruits={this.state.myFruits} />
+        <div className='row'>
+          <button className='btn btn-default' onClick={this.toggleMyCars}> Cars</button>
+          <button className='btn btn-default' onClick={this.toggleMyFruits}> Fruits </button>
+        </div>
+
+        { this.state.showCars && <CarComp theCars={this.state.myCars}/> }
+
+        { this.state.showFruits && <FruitComp theFruits={this.state.myFruits} /> }
+
 
         {/* <h4> {this.state.myMsg} </h4> */}
-        {/* <button className='btn btn-default' onClick={this.toggleMyCars}> Cars</button> */}
         {
           // this.state.myCars.map((car) => (
           //   <div className='col-md-4 col-sm-4' key={car.id}>

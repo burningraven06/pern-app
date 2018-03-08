@@ -6,7 +6,6 @@ class CarComp extends React.Component{
       this.state = {
          allCars: []
       }
-      
    }
 
    componentWillMount(){
