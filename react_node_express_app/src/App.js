@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MessageComp from './components/msgComp';
 import CarComp from './components/carComp';
+import FruitComp from './components/fruitComp';
 
 class App extends Component {
   state = {
@@ -47,32 +48,34 @@ class App extends Component {
     return (
       <div className="App">
         <h1> React App </h1>
-        {/* <h4> {this.state.myMsg} </h4> */}
+        
         <h4> <MessageComp msgText={this.state.myMsg}/> </h4> 
-        <CarComp />
+        <CarComp theCars={this.state.myCars}/>
+        <FruitComp theFruits={this.state.myFruits} />
 
+        {/* <h4> {this.state.myMsg} </h4> */}
         {/* <button className='btn btn-default' onClick={this.toggleMyCars}> Cars</button> */}
         {
-          this.state.myCars.map((car) => (
-            <div className='col-md-4 col-sm-4' key={car.id}>
-              <h4 style={{color:car.color}}>{car.name} </h4>
-              <p> 
-                <i className='fa fa-paint-brush'> </i> {car.color} 
-                <i className='fa fa-dollar-sign'> </i> {car.price} 
-              </p>
-            </div>
-          ))
+          // this.state.myCars.map((car) => (
+          //   <div className='col-md-4 col-sm-4' key={car.id}>
+          //     <h4 style={{color:car.color}}>{car.name} </h4>
+          //     <p> 
+          //       <i className='fa fa-paint-brush'> </i> {car.color} 
+          //       <i className='fa fa-dollar-sign'> </i> {car.price} 
+          //     </p>
+          //   </div>
+          // ))
         }
 
         {
-          this.state.myFruits.map((fruit) => (
-            <div className='col-md-4 col-sm-4' key={fruit.id}>
-              <h4 style={{fontSize:fruit.fSize}}>{fruit.name} </h4>
-              <p> 
-                <i className='fa fa-scale'> </i> {fruit.weight}
-              </p>
-            </div>
-          ))
+          // this.state.myFruits.map((fruit) => (
+          //   <div className='col-md-4 col-sm-4' key={fruit.id}>
+          //     <h4 style={{fontSize:fruit.fSize}}>{fruit.name} </h4>
+          //     <p> 
+          //       <i className='fa fa-scale'> </i> {fruit.weight}
+          //     </p>
+          //   </div>
+          // ))
         }
          
       </div>
