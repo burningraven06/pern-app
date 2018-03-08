@@ -10,13 +10,13 @@ class App extends Component {
     showFruits: false
   }
 
-  // componentDidMount(){
-  //   this.callApiDefault().then(res => this.setState({ myMsg: res.backMsg })).catch(err => console.log(err));
+  componentDidMount(){
+    this.callApiDefault().then(res => this.setState({ myMsg: res.backMsg })).catch(err => console.log(err));
 
-  //   this.callApiCars().then(res => this.setState({ myCars: res.backCars })).catch(err => console.log(err));
+    this.callApiCars().then(res => this.setState({ myCars: res.backCars })).catch(err => console.log(err));
 
-  //   this.callApiFruits().then(res => this.setState({ myFruits: res.backFruits })).catch(err => console.log(err));
-  // }
+    this.callApiFruits().then(res => this.setState({ myFruits: res.backFruits })).catch(err => console.log(err));
+  }
 
   callApiDefault = async() =>{
     const response = await fetch('/api/hello');
@@ -47,7 +47,7 @@ class App extends Component {
       <div className="App">
         <h1> React App </h1>
         {/* <h4> {this.state.myMsg} </h4> */}
-        <h4> <MessageComp msgText={"wow"}/> </h4> 
+        <h4> <MessageComp msgText={this.state.myMsg}/> </h4> 
         {/* <button className='btn btn-default' onClick={this.toggleMyCars}> Cars</button> */}
         {
           this.state.myCars.map((car) => (

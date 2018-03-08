@@ -20,7 +20,7 @@ import React from 'react';
 
 const MessageComp = (props) => {
 	return (
-		<p> Hey {props.msgText} </p>
+		<p> Hey! {props.msgText} </p>
 	)
 }
 export default MessageComp;
