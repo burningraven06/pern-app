@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageComp from './components/msgComp';
+import CarComp from './components/carComp';
 
 class App extends Component {
   state = {
@@ -48,6 +49,8 @@ class App extends Component {
         <h1> React App </h1>
         {/* <h4> {this.state.myMsg} </h4> */}
         <h4> <MessageComp msgText={this.state.myMsg}/> </h4> 
+        <CarComp />
+
         {/* <button className='btn btn-default' onClick={this.toggleMyCars}> Cars</button> */}
         {
           this.state.myCars.map((car) => (
