@@ -9,7 +9,7 @@ export default class MessageComp extends React.Component{
 	}
 
 	componentDidMount(){
-		// this.callApiMsg().then(res => this.setState({ myMsg: res.backMsg })).catch(err => console.log(err));
+		this.callApiMsg().then(res => this.setState({ myMsg: res.backMsg })).catch(err => console.log(err));
 	}
 
 	callApiMsg = async () => {

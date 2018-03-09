@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, BrowserRouter, NavLink } from 'react-router-dom';
+// import { Route, BrowserRouter, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 
 const NavbarComp = (props) => {
    return (

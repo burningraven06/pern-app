@@ -1,9 +1,10 @@
 import React from 'react';
-import NavbarComp from './navComp';
-import MessageComp from './msgComp';
+// import NavbarComp from './navComp';
+// import MessageComp from './msgComp';
 import CarComp from './carComp';
 import FruitComp from './fruitComp';
-export class RootComp extends React.Component{
+
+export class HomeComp extends React.Component{
 
    constructor() {
       super();
@@ -52,8 +53,8 @@ export class RootComp extends React.Component{
       return (
          <div className='container'>
             <div className='row'>
-               <div className='col-md-10 col-md-offset-1'> <NavbarComp /> </div>
-               <div className='col-md-10 col-md-offset-1'> { this.props.children}</div>
+               {/* <div className='col-md-10 col-md-offset-1'> <NavbarComp /> </div> */}
+               {/* <div className='col-md-10 col-md-offset-1'> { this.props.children}</div> */}
             </div>
             {/* <h4> <MessageComp msgText={this.state.myMsg}/> </h4>  */}
             <div className='row'>
