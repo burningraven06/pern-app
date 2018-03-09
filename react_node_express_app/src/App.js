@@ -4,8 +4,9 @@ import MessageComp from './components/msgComp';
 // import FruitComp from './components/fruitComp';
 import NavbarComp from './components/navComp';
 import { Route, BrowserRouter } from 'react-router-dom';
-import { HomeComp } from './components/homeComp';
-
+import {HomeComp} from './components/homeComp';
+import CarProfileComp from './components/carProfileComp';
+import CarsComp from './components/carsComp';
 
 class App extends Component {
  
@@ -17,6 +18,7 @@ class App extends Component {
           <NavbarComp />
           <Route exact path={"/"} component={HomeComp} />
           <Route path={"/about"} component={MessageComp} />
+          <Route path={"/cars/:id"} component={CarProfileComp} />
           {/* <Route path={"/about"} render={ () => <MessageComp theMsg="ola" />} /> */}
         </div>
       </BrowserRouter>

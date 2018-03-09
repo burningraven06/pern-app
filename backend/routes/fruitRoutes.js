@@ -1,17 +1,13 @@
 var express = require('express');
 // const sampleFruitArray = require('../data/fruits');
-var fruitQueries = require('../dbqueries/fruitqueries');
+var fruitDBQueries = require('../dbqueries/fruitqueries');
 var fruitRouter = express.Router();
 
-fruitRouter.get('/', fruitQueries.getAllFruits);
+fruitRouter.get('/', fruitDBQueries.getAllFruits);
 
-fruitRouter.post('/', (req, res) => {
+fruitRouter.post('/', );
 
-});
-
-fruitRouter.get('/:id', (req, res) => {
-
-});
+fruitRouter.get('/:id', fruitDBQueries.getSingleFruit);
 
 fruitRouter.patch('/:id', (req, res) => {
 

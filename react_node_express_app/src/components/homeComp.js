@@ -1,8 +1,8 @@
 import React from 'react';
 // import NavbarComp from './navComp';
 // import MessageComp from './msgComp';
-import CarComp from './carComp';
-import FruitComp from './fruitComp';
+import CarsComp from './carsComp';
+import FruitsComp from './fruitsComp';
 
 export class HomeComp extends React.Component{
 
@@ -14,39 +14,25 @@ export class HomeComp extends React.Component{
          showCars: false,
          showFruits: false
       }
-      this.toggleMyCars = this.toggleMyCars.bind(this);
-      this.toggleMyFruits = this.toggleMyFruits.bind(this);
    }
 
    componentDidMount() {
-      this.callApiCars().then(res => this.setState({ myCars: res.backCars })).catch(err => console.log(err));
-      this.callApiFruits().then(res => this.setState({ myFruits: res.backFruits })).catch(err => console.log(err));
+      this.callApiGetAllCars().then(res => this.setState({ myCars: res.backCars, showCars: true })).catch(err => console.log(err));
+      this.callApiGetAllFruits().then(res => this.setState({ myFruits: res.backFruits, showFruits: true })).catch(err => console.log(err));
    }
 
-   callApiCars = async () => {
+   callApiGetAllCars = async () => {
       const response = await fetch('/api/cars');
       const resBody = await response.json();
       if (response.status !== 200) throw Error(resBody.message);
       return resBody;
    };
 
-   callApiFruits = async () => {
+   callApiGetAllFruits = async () => {
       const response = await fetch('/api/fruits');
       const resBody = await response.json();
       if (response.status !== 200) throw Error(resBody.message);
       return resBody;
-   }
-
-   toggleMyCars() {
-      this.setState({
-         showCars: !this.state.showCars
-      })
-   }
-
-   toggleMyFruits() {
-      this.setState({
-         showFruits: !this.state.showFruits
-      })
    }
 
    render(){
@@ -57,14 +43,11 @@ export class HomeComp extends React.Component{
                {/* <div className='col-md-10 col-md-offset-1'> { this.props.children}</div> */}
             </div>
             {/* <h4> <MessageComp msgText={this.state.myMsg}/> </h4>  */}
-            <div className='row'>
-               <button className='btn btn-default' onClick={this.toggleMyCars}> Cars</button>
-               <button className='btn btn-default' onClick={this.toggleMyFruits}> Fruits </button>
-            </div>
-
-            {this.state.showCars && <CarComp theCars={this.state.myCars} />}
-
-            {this.state.showFruits && <FruitComp theFruits={this.state.myFruits} />}
+            
+            <h3> Cars</h3>
+            {this.state.showCars && <CarsComp theCars={this.state.myCars} />}
+            <h3> Fruits</h3>
+            {this.state.showFruits && <FruitsComp theFruits={this.state.myFruits} />}
 
 
             {/* <h4> {this.state.myMsg} </h4> */}
