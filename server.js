@@ -3,8 +3,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 
-const carRouter = require('./routes/carRoutes');
-const fruitRouter = require('./routes/fruitRoutes');
+const carRouter = require('./backend/routes/carRoutes');
+const fruitRouter = require('./backend/routes/fruitRoutes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
