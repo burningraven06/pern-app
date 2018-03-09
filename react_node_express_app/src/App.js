@@ -7,7 +7,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import {HomeComp} from './components/homeComp';
 import CarProfileComp from './components/carProfileComp';
 import CarsComp from './components/carsComp';
-
+import FruitProfileComp from './components/fruitProfileComp';
 class App extends Component {
  
   render() {
@@ -19,6 +19,7 @@ class App extends Component {
           <Route exact path={"/"} component={HomeComp} />
           <Route path={"/about"} component={MessageComp} />
           <Route path={"/cars/:id"} component={CarProfileComp} />
+          <Route path={"/fruits/:id"} component={FruitProfileComp} />
           {/* <Route path={"/about"} render={ () => <MessageComp theMsg="ola" />} /> */}
         </div>
       </BrowserRouter>

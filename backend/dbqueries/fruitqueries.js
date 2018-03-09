@@ -16,5 +16,4 @@ getSingleFruit = (req, res, next)=> {
 module.exports = {
    getAllFruits: getAllFruits,
    getSingleFruit: getSingleFruit,
-   
 }

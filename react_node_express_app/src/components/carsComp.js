@@ -15,7 +15,7 @@ class CarsComp extends React.Component{
             <div className='col-md-12' style={{paddingLeft: 0, marginBottom: 30}}>
             {
                this.state.allCars.map((car) => (
-                  <div className='col-md-3 col-sm-3' key={car.id} style={{padding: 0}}>
+                  <div className='col-md-3 col-sm-3 col-xs-6' key={car.id} style={{padding: 0}}>
                      <h4> 
                            <NavLink to={"/cars/" + car.id} style={{ color: car.color }}> {car.name} </NavLink>
                      </h4>

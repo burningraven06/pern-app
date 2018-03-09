@@ -1,4 +1,6 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
+
 export default class FruitsComp extends React.Component {
 	constructor(props) {
 		super(props);
@@ -13,8 +15,9 @@ export default class FruitsComp extends React.Component {
 				<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
 					{
 						this.state.allFruits.map((fruit) => (
-							<div className='col-md-3 col-sm-3' key={fruit.id} style={{padding: 0}}>
-								<h4 style={{ fontSize: fruit.fSize }}>{fruit.name} </h4>
+							<div className='col-md-3 col-sm-3 col-xs-6' key={fruit.id} style={{padding: 0}}>
+								<h4 style={{ fontSize: fruit.fSize }}>
+									<NavLink to={"/fruits/" + fruit.id}> {fruit.name} </NavLink> </h4>
 								<p>
 									<i className='fa fa-scale'> </i> {fruit.weight}
 								</p>
