@@ -22,6 +22,7 @@
   "homepage": "https://github.com/bluescorpx93/fcc-node-react-pa#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "pg-promise": "^8.1.1"
   },
