@@ -28,7 +28,7 @@ export default class FruitComp extends React.Component{
                   ))
             }
             </div>
-            <div className='col-md-6'>
+            <div className='col-md-6 hidden'>
             2. {
                   this.props.theFruits.map((fruit) => (
                      <div className='col-md-4 col-sm-4' key={fruit.id}>

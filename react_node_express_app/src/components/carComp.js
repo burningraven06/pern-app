@@ -31,7 +31,7 @@ class CarComp extends React.Component{
                ))            
             } 
             </div>
-            <div className = 'col-md-6'>
+            <div className = 'col-md-6 hidden'>
             2. {
                this.props.theCars.map((car) => (
                   <div className='col-md-4 col-sm-4' key={car.id}>
