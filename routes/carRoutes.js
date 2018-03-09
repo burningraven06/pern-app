@@ -6,9 +6,7 @@ var carDBQueries = require('../dbqueries/carqueries');
 
 carRouter.get('/', carDBQueries.getAllCars);
 
-carRouter.post('/', (req, res) => {
-
-});
+carRouter.post('/', carDBQueries.createCar);
 
 carRouter.get('/:id',carDBQueries.getSingleCar);
 
