@@ -12,8 +12,6 @@ carRouter.get('/:id',carDBQueries.getSingleCar);
 
 carRouter.patch('/:id', carDBQueries.updateCar);
 
-carRouter.delete('/:id', (req, res) => {
-
-});
+carRouter.delete('/:id', carDBQueries.deleteCar);
 
 module.exports = carRouter;
