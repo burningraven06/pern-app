@@ -1,8 +1,9 @@
 import React from 'react';
+// import NavbarComp from './navComp';
+// import MessageComp from './msgComp';
 import CarsComp from './carsComp';
 import FruitsComp from './fruitsComp';
 import CarCreateComp from './carCreateFormComp';
-import axios from 'axios';
 
 export class HomeComp extends React.Component{
 
@@ -16,6 +17,9 @@ export class HomeComp extends React.Component{
          carTitle: "Cars",
          fruitTitle: "Fruits",
          showCarForm: false,
+         newCarName: "",
+         newCarColor: "",
+         newCarPrice: ""
       }
       this.receiveCarFormData = this.receiveCarFormData.bind(this)
    }
@@ -45,75 +49,54 @@ export class HomeComp extends React.Component{
       })
    }
 
-   // callApiCreateCar = async () => {
-      
-   
-   //    const response = await fetch('/api/cars', {
-   //       method: 'post',
-   //       headers: {
-   //          'Content-Type': 'application/json'
-   //       },
-   //       body: newCarData
-   //    });
-   //    const resBody = await response.json();
-   //    if (response.status !== 200) throw Error(resBody.message);
-   //    // console.log("Working here", resBody);
-   //    return resBody;   
-   // }
-
-   receiveCarFormData = async(newCN, newCC, newCP) =>{
+   receiveCarFormData(name, color, price){
       this.setState({
-         showCars: true, carTitle: "Cars", fruitTitle: "Fruits", showFruits: true, showCarForm: false,
-         newCarName: newCN, newCarColor: newCC, newCarPrice: newCP
-      });
-      console.log("Data Home: ", newCN, newCC, newCP)
-      
-      // let newCarData = JSON.stringify({
-      //    name: newCN, color: newCC, price: newCP
-      // });
-
-      // const response = await fetch('/api/cars', {
-      //    method: 'post',
-      //    headers: {
-      //       'Content-Type': 'application/json'
-      //    },
-      //    body: newCarData
-      // });
-
-      // const resBody = await response.json();
-      // if (response.status !== 200) throw Error(resBody.message);
-
-      // this.callApiGetAllCars().then(res => this.setState({ myCars: res.backCars, showCars: true })).catch(err => console.log(err));
-      // this.callApiCreateCar().then( res => console.log(res.message)).catch( err => console.log(err));
-
-      this.onCreateNewCar(newCN, newCC, newCP)
-   }
-
-   async onCreateNewCar(newCN, newCC, newCP) {
-      
-      try {
-         const response = await axios.post('/api/cars', { newCN, newCC, newCP });
-         console.log(response);
-      } catch (err) {
-
-      }
+         showCars: true, carTitle: "Cars", fruitTitle: "Fruits", showFruits: true, showCarForm: false, newCarName: name, newCarColor: color, newCarPrice: price
+      })
+      console.log("New Data: ", name, color, price);
    }
 
    render(){
       return (
          <div className='container'>
-                        
+            <div className='row'>
+               {/* <div className='col-md-10 col-md-offset-1'> <NavbarComp /> </div> */}
+               {/* <div className='col-md-10 col-md-offset-1'> { this.props.children}</div> */}
+            </div>
+            {/* <h4> <MessageComp msgText={this.state.myMsg}/> </h4>  */}
+            
             <h3> {this.state.carTitle} </h3>
             <button className='btn btn-default' onClick={this.renderCreateCarComp}> Create</button>
 
             {this.state.showCarForm && <CarCreateComp unRenderComp={this.receiveCarFormData} />}
-
             {this.state.showCars && <CarsComp theCars={this.state.myCars} />}
-
             <h3> { this.state.fruitTitle }</h3>
-
             {this.state.showFruits && <FruitsComp theFruits={this.state.myFruits} />}
 
+
+            {/* <h4> {this.state.myMsg} </h4> */}
+            {
+               // this.state.myCars.map((car) => (
+               //   <div className='col-md-4 col-sm-4' key={car.id}>
+               //     <h4 style={{color:car.color}}>{car.name} </h4>
+               //     <p> 
+               //       <i className='fa fa-paint-brush'> </i> {car.color} 
+               //       <i className='fa fa-dollar-sign'> </i> {car.price} 
+               //     </p>
+               //   </div>
+               // ))
+            }
+
+            {
+               // this.state.myFruits.map((fruit) => (
+               //   <div className='col-md-4 col-sm-4' key={fruit.id}>
+               //     <h4 style={{fontSize:fruit.fSize}}>{fruit.name} </h4>
+               //     <p> 
+               //       <i className='fa fa-scale'> </i> {fruit.weight}
+               //     </p>
+               //   </div>
+               // ))
+            }
          </div>
       );
    }
