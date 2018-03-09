@@ -10,9 +10,7 @@ carRouter.post('/', (req, res) => {
 
 });
 
-carRouter.get('/:id', (req, res) =>{
-
-});
+carRouter.get('/:id',carDBQueries.getSingleCar);
 
 carRouter.patch('/:id', (req, res) =>{
 
