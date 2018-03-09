@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3500;
-const sampleFruitArray = require('./data/fruits');
 const carRouter = require('./routes/carRoutes');
+const fruitRouter = require('./routes/fruitRoutes');
 
 
 app.listen(port, () =>{
@@ -14,7 +14,4 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.use('/api/cars', carRouter);
-
-app.get('/api/fruits', (req, res) => {
-   res.status(200).send({backFruits: sampleFruitArray });
-})
+app.use('/api/fruits', fruitRouter);
