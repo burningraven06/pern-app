@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/bluescorpx93/fcc-node-react-pa#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "express": "^4.16.2",
     "pg-promise": "^8.1.1"
   },
