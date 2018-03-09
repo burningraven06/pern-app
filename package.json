@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/bluescorpx93/fcc-node-react-pa#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "pg-promise": "^8.1.1"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
