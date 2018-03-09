@@ -10,9 +10,7 @@ carRouter.post('/', carDBQueries.createCar);
 
 carRouter.get('/:id',carDBQueries.getSingleCar);
 
-carRouter.patch('/:id', (req, res) =>{
-
-});
+carRouter.patch('/:id', carDBQueries.updateCar);
 
 carRouter.delete('/:id', (req, res) => {
 

@@ -21,11 +21,18 @@ createCar = (req, res, next) => {
    }).catch( (err) => { next(err) })
 }
 
+updateCar = (req, res, next) => {
+   var carID = req.params.id;
+   db.none('update cars set name=$1, color=$2, price=$3 where id=$4', [req.body.name, req.body.color, req.body.price, parseInt(req.params.id)]).then( () => {
+      res.status(200).json({ message: "Car Updated in DB"})
+   }).catch( (err) => { next(err) })
+}
+
 module.exports = {
    getAllCars: getAllCars,
    getSingleCar: getSingleCar,
    createCar: createCar,
-   // updateCar: updateCar,
+   updateCar: updateCar,
    // deleteCar: deleteCar
 }
 
