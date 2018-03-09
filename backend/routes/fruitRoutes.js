@@ -1,11 +1,9 @@
 var express = require('express');
 // const sampleFruitArray = require('../data/fruits');
-
+var fruitQueries = require('../dbqueries/fruitqueries');
 var fruitRouter = express.Router();
 
-fruitRouter.get('/', (req, res) => {
-   res.status(200).send({ backFruits: sampleFruitArray });
-});
+fruitRouter.get('/', fruitQueries.getAllFruits);
 
 fruitRouter.post('/', (req, res) => {
 
