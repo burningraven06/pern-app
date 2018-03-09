@@ -9,10 +9,10 @@ const NavbarComp = (props) => {
          <div className='container-fluid'>
             <div className='navbar-header'>
                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-div" aria-expanded="false">
-                  <span class="sr-only">Toggle Nav</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
+                  <span className="sr-only">Toggle Nav</span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
                </button>
                <NavLink className="navbar-brand" to={"/"}>React App</NavLink>
             </div>
