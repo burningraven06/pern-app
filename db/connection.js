@@ -7,4 +7,4 @@ var connectionStr = "postgres://postgres:postgres@localhost:5432/carfruitdb";
 
 var db = pgpool(connectionStr);
 
-module.exp
+module.exports = db;

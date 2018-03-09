@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3500;
+const port = process.env.PORT || 5000;
 const carRouter = require('./routes/carRoutes');
 const fruitRouter = require('./routes/fruitRoutes');
-
 
 app.listen(port, () =>{
    console.log(`Express running on port: ${port}`);

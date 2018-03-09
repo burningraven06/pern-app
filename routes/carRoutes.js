@@ -1,11 +1,10 @@
 var express = require ('express');
+// const sampleCarArray = require('../data/cars');
 
-const sampleCarArray = require('../data/cars');
 var carRouter = express.Router();
+var carDBQueries = require('../dbqueries/carqueries');
 
-carRouter.get('/', (req, res) => {
-   res.status(200).send({ backCars: sampleCarArray });
-})
+carRouter.get('/', carDBQueries.getAllCars);
 
 carRouter.post('/', (req, res) => {
 

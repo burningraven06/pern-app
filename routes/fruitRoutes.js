@@ -1,5 +1,5 @@
 var express = require('express');
-const sampleFruitArray = require('../data/fruits');
+// const sampleFruitArray = require('../data/fruits');
 
 var fruitRouter = express.Router();
 
