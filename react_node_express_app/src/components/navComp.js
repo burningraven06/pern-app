@@ -19,6 +19,7 @@ const NavbarComp = (props) => {
             <div className="collapse navbar-collapse" id="navbar-div">
                <ul className="nav navbar-nav ">
                   <li> <NavLink to={"/"} activeStyle={{ color: "#222" }}> Home </NavLink> </li>
+                  <li> <NavLink to={"/cars"} activeStyle={{ color: "#222" }}> Cars </NavLink> </li>
                   <li> <NavLink to={"/about"} activeStyle={{ color: "darkgrey" }}> About</NavLink></li>
                   
                </ul>

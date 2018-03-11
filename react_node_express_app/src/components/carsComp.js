@@ -1,47 +1,85 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import CarCreateComp from './carCreateFormComp';
+import axios from 'axios';
 
-class CarsComp extends React.Component{
-   constructor(props){
-      super(props);
-      this.state = {
-         allCars: this.props.theCars
-      }
-   }
+class CarsComp extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			allCars: [],
+			showCarForm: false,
+			carTitle: "Cars",
+			showCars: false,
+			showCarCreateBtn: true,
+		}
+		this.renderCreateCarComp = this.renderCreateCarComp.bind(this)
+		this.receiveCarFormData = this.receiveCarFormData.bind(this)
+	}
 
-   render(){
-      return (
-         <div>
-            <div className='col-md-12' style={{paddingLeft: 0, marginBottom: 30}}>
-            {
-               this.state.allCars.map((car) => (
-                  <div className='col-md-3 col-sm-3 col-xs-6' key={car.id} style={{padding: 0}}>
-                     <h4> 
-                           <NavLink to={"/cars/" + car.id} style={{ color: car.color }}> {car.name} </NavLink>
-                     </h4>
-                     <p>
-                        <i className='fa fa-dollar-sign'> </i> {car.price}
-                     </p>
-                  </div>
-               ))            
-            } 
-            </div>
-            <div className = 'col-md-12 hidden'>
-            {
-               this.props.theCars.map((car) => (
-                  <div className='col-md-4 col-sm-4' key={car.id}>
-                     <h4 style={{ color: car.color }}>{car.name} </h4>
-                     <p>
-                        <i className='fa fa-paint-brush'> </i> {car.color}
-                        
-                     </p>
-                  </div>            
-               ))
-            }
-            </div>
-         </div>
-      );
-   }
+	componentDidMount() {
+		this.callApiGetAllCars().then(res => this.setState({ allCars: res.backCars, showCars: true })).catch(err => console.log(err));
+	}
+
+	callApiGetAllCars = async () => {
+		const response = await fetch('/api/cars');
+		const resBody = await response.json();
+		if (response.status !== 200) throw Error(resBody.message);
+		return resBody;
+	}
+
+	renderCreateCarComp = () => {
+		this.setState({
+			showCars: false, carTitle: "Create New Car", showCarForm: true,
+			showCarCreateBtn: false
+		})
+	}
+
+	receiveCarFormData = (newCN, newCC, newCP) => {
+		this.createNewCarApiCall(newCN, newCC, newCP);
+		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, carCreated: false })
+	}
+
+	createNewCarApiCall = (name, color, price) => {
+		axios.post('/api/cars', {
+			name: name,
+			color: color,
+			price: parseInt(price)
+		}).then((res) => {
+			console.log(res);
+			this.callApiGetAllCars().then((res) => { this.setState({ allCars: res.backCars }) }).catch(err => console.log(err));
+		}).catch(err => console.log(err))
+	}
+
+	render() {
+		return (
+			<div className='col-md-10 col-md-offset-1'>
+				<h3> {this.state.carTitle} </h3>
+				
+				{this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCreateCarComp}> Create</button> }
+
+				{this.state.showCarForm && <CarCreateComp unRenderComp={this.receiveCarFormData} />}
+
+				{ this.state.showCars && (
+					<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
+						{
+							this.state.allCars.map((car) => (
+								<div className='col-md-3 col-sm-3 col-xs-6' key={car.id} style={{ padding: 0 }}>
+									<h4>
+										<NavLink to={"/cars/" + car.id} style={{ color: car.color }}> {car.name} </NavLink>
+									</h4>
+									<p>
+										<i className='fa fa-dollar-sign'> </i> {car.price}
+									</p>
+								</div>
+							))
+						}
+					</div>
+				)}
+				
+			</div>
+		);
+	}
 }
 
 export default CarsComp;

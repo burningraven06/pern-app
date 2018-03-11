@@ -32,7 +32,7 @@ export default class CarCreateComp extends React.Component{
    render(){
       return (
          <div className='col-sm-6 col-sm-offset-3'> 
-            <form className='form' onSubmit={this.handleSubmit}> 
+            <form className='form'> 
                <input type='text' placeholder='Name' name='carname' className='form-control' onChange={this.handleCarNameChange} />
                <input type='text' placeholder='Color' name='carcolor' className='form-control' onChange={this.handleCarColorChange} />
                <input type='text' placeholder='Price' name='carprice' className='form-control' onChange={this.handleCarPriceChange} />
