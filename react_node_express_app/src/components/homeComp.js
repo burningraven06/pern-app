@@ -9,13 +9,8 @@ export class HomeComp extends React.Component{
    constructor() {
       super();
       this.state = {
-         myCars: [],
-         myFruits: [],
-         showCars: false,
-         showFruits: false,
-         carTitle: "Cars",
-         fruitTitle: "Fruits",
-         showCarForm: false,
+         myCars: [], myFruits: [],  showCars: false,  showFruits: false,   carTitle: "Cars",
+         fruitTitle: "Fruits",   showCarForm: false
       }
       this.receiveCarFormData = this.receiveCarFormData.bind(this)
    }
@@ -45,64 +40,28 @@ export class HomeComp extends React.Component{
       })
    }
 
-   // callApiCreateCar = async () => {
-      
-   
-   //    const response = await fetch('/api/cars', {
-   //       method: 'post',
-   //       headers: {
-   //          'Content-Type': 'application/json'
-   //       },
-   //       body: newCarData
-   //    });
-   //    const resBody = await response.json();
-   //    if (response.status !== 200) throw Error(resBody.message);
-   //    // console.log("Working here", resBody);
-   //    return resBody;   
-   // }
-
-   receiveCarFormData = async(newCN, newCC, newCP) =>{
-      this.setState({
-         showCars: true, carTitle: "Cars", fruitTitle: "Fruits", showFruits: true, showCarForm: false,
-         newCarName: newCN, newCarColor: newCC, newCarPrice: newCP
-      });
-      console.log("Data Home: ", newCN, newCC, newCP)
-      
-      // let newCarData = JSON.stringify({
-      //    name: newCN, color: newCC, price: newCP
+   receiveCarFormData = (newCN, newCC, newCP) =>{
+      // this.setState({
+         
       // });
-
-      // const response = await fetch('/api/cars', {
-      //    method: 'post',
-      //    headers: {
-      //       'Content-Type': 'application/json'
-      //    },
-      //    body: newCarData
-      // });
-
-      // const resBody = await response.json();
-      // if (response.status !== 200) throw Error(resBody.message);
-
-      // this.callApiGetAllCars().then(res => this.setState({ myCars: res.backCars, showCars: true })).catch(err => console.log(err));
-      // this.callApiCreateCar().then( res => console.log(res.message)).catch( err => console.log(err));
-
-      this.onCreateNewCar(newCN, newCC, newCP)
-   }
-
-   async onCreateNewCar(newCN, newCC, newCP) {
+      // console.log("Data Home: ", newCN, newCC, newCP)
       
-      try {
-         const response = await axios.post('/api/cars', { newCN, newCC, newCP });
-         console.log(response);
-      } catch (err) {
+      this.createNewCarApiCall(newCN, newCC, newCP);
+      this.callApiGetAllCars().then((res) => { this.setState({ myCars: res.backCars, showCars: true, carTitle: "Cars", fruitTitle: "Fruits", showFruits: true, showCarForm: false, })}).catch( err => console.log(err))
+   } 
 
-      }
+   createNewCarApiCall = (name, color, price) => {
+      axios.post('/api/cars', {
+         name: name,
+         color: color,
+         price: parseInt(price)
+      }).then( (res) => console.log(res)).catch( err => console.log(err))
    }
 
    render(){
       return (
          <div className='container'>
-                        
+      
             <h3> {this.state.carTitle} </h3>
             <button className='btn btn-default' onClick={this.renderCreateCarComp}> Create</button>
 

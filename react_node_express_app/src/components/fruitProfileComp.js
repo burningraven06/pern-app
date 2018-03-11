@@ -1,8 +1,5 @@
 import React from 'react';
 export default class FruitProfileComp extends React.Component{
-   constructor(props){
-      super(props)
-   }
    state = {
       theSingleFruit: ""
    }
