@@ -14,6 +14,12 @@ class CarProfileComp extends React.Component{
       })).catch( err => console.log(err));
    }
 
+   componentDidUpdate(){
+      this.callApiGetSingleCar().then(res => this.setState({
+         theSingleCar: res.singleCar
+      })).catch(err => console.log(err));
+   }
+
    callApiGetSingleCar = async() => {
       const fetchURL = '/api/cars/' + this.props.match.params.id
       const response = await fetch(fetchURL);
