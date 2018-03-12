@@ -8,7 +8,7 @@ export default class FruitProfileComp extends React.Component{
       this.callApiSingleFruit().then( res => {
          this.setState({ theSingleFruit: res.singleFruit })
       }).catch(err => console.log(err))
-   }
+   } 
 
    callApiSingleFruit = async() =>{
       const fetchURL = '/api/fruits/' + this.props.match.params.id
