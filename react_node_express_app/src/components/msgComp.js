@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default class MessageComp extends React.Component{
-   constructor(props){
-      super(props);
+   constructor(){
+		super();
 		this.state = {
-			myMsg: props.theMsg
+			myMsg: ""
 		}
 	}
 

@@ -8,9 +8,9 @@ class CarsComp extends React.Component {
 		super(props);
 		this.state = {
 			allCars: [],
-			showCarForm: false,
 			carTitle: "Cars",
 			showCars: false,
+			showCarForm: false,
 			showCarCreateBtn: true,
 		}
 		this.renderCreateCarComp = this.renderCreateCarComp.bind(this)
