@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import CarCreateComp from './carCreateFormComp';
-import CarProfileComp from './carProfileComp';
 import axios from 'axios';
 
 class CarsComp extends React.Component {
@@ -14,23 +13,23 @@ class CarsComp extends React.Component {
 			showCarForm: false,
 			showCarCreateBtn: true,
 		}
-		this.renderCreateCarComp = this.renderCreateCarComp.bind(this)
+		this.renderCarForm = this.renderCarForm.bind(this)
 		this.receiveCarFormData = this.receiveCarFormData.bind(this)
 		this.unrenderCarForm = this.unrenderCarForm.bind(this)
 	}
 
 	componentDidMount() {
-		this.callApiGetAllCars().then(res => this.setState({ allCars: res.backCars, showCars: true })).catch(err => console.log(err));
+		this.getAllCarsApiCall().then(res => this.setState({ allCars: res.backCars, showCars: true })).catch(err => console.log(err));
 	}
 
-	callApiGetAllCars = async () => {
+	getAllCarsApiCall = async () => {
 		const response = await fetch('/api/cars');
 		const resBody = await response.json();
 		if (response.status !== 200) throw Error(resBody.message);
 		return resBody;
 	}
 
-	renderCreateCarComp = () => {
+	renderCarForm = () => {
 		this.setState({
 			showCars: false, carTitle: "Create New Car", showCarForm: true,
 			showCarCreateBtn: false
@@ -39,8 +38,8 @@ class CarsComp extends React.Component {
 
 	receiveCarFormData = (newCN, newCC, newCP) => {
 		this.createNewCarApiCall(newCN, newCC, newCP);
-		this.unrenderCarForm()
-	}
+		this.hideCarForm()
+	} 
 
 	unrenderCarForm = () => {
 		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, })
@@ -53,7 +52,7 @@ class CarsComp extends React.Component {
 			price: parseInt(price, 10)
 		}).then((res) => {
 			console.log(res);
-			this.callApiGetAllCars().then((res) => { this.setState({ allCars: res.backCars }) }).catch(err => console.log(err));
+			this.getAllCarsApiCall().then((res) => { this.setState({ allCars: res.backCars }) }).catch(err => console.log(err));
 		}).catch(err => console.log(err))
 	}
 
@@ -62,7 +61,7 @@ class CarsComp extends React.Component {
 			<div className='col-md-10 col-md-offset-1'>
 				<h3 className={this.state.showCarForm? 'text-center': ''}> {this.state.carTitle} </h3>
 				
-				{this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCreateCarComp}> Create</button> }
+				{this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCarForm}> Create</button> }
 
 				{this.state.showCarForm && <CarCreateComp receiveCarData={this.receiveCarFormData} unrenderForm={this.unrenderCarForm} />}
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import CarsComp from './carsComp';
 
 export default class CarCreateComp extends React.Component{
    constructor(props){
@@ -24,7 +23,7 @@ export default class CarCreateComp extends React.Component{
    }
    handleCarPriceChange = (event) => {
       this.setState({ carprice: event.target.value });
-   }
+   } 
 
    sendCarFormData = (event) => {
       event.preventDefault()
