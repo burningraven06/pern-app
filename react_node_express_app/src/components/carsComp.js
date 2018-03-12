@@ -16,6 +16,7 @@ class CarsComp extends React.Component {
 		}
 		this.renderCreateCarComp = this.renderCreateCarComp.bind(this)
 		this.receiveCarFormData = this.receiveCarFormData.bind(this)
+		this.unrenderCarForm = this.unrenderCarForm.bind(this)
 	}
 
 	componentDidMount() {
@@ -38,7 +39,11 @@ class CarsComp extends React.Component {
 
 	receiveCarFormData = (newCN, newCC, newCP) => {
 		this.createNewCarApiCall(newCN, newCC, newCP);
-		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, carCreated: false })
+		this.unrenderCarForm()
+	}
+
+	unrenderCarForm = () => {
+		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, })
 	}
 
 	createNewCarApiCall = (name, color, price) => {
@@ -55,11 +60,11 @@ class CarsComp extends React.Component {
 	render() {
 		return (
 			<div className='col-md-10 col-md-offset-1'>
-				<h3> {this.state.carTitle} </h3>
+				<h3 className={this.state.showCarForm? 'text-center': ''}> {this.state.carTitle} </h3>
 				
 				{this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCreateCarComp}> Create</button> }
 
-				{this.state.showCarForm && <CarCreateComp unRenderComp={this.receiveCarFormData} />}
+				{this.state.showCarForm && <CarCreateComp receiveCarData={this.receiveCarFormData} unrenderForm={this.unrenderCarForm} />}
 
 				{ this.state.showCars && (
 					<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
@@ -77,9 +82,6 @@ class CarsComp extends React.Component {
 						}
 					</div>
 				)}
-
-			
-				
 			</div>
 		);
 	}

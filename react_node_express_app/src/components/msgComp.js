@@ -23,7 +23,7 @@ export default class MessageComp extends React.Component{
 	
      	return (
        	<div>
-				<p> Hey {this.state.myMsg}</p>
+				<h4 className='text-center'> Hey {this.state.myMsg} & React App works too</h4>
 			</div>
      	);	
   	}

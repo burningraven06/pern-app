@@ -1,7 +1,7 @@
 import React from 'react';
 export default class FruitProfileComp extends React.Component{
    state = {
-      theSingleFruit: ""
+      theSingleFruit: {}
    }
 
    componentDidMount(){
