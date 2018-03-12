@@ -5,7 +5,7 @@ var fruitRouter = express.Router();
 
 fruitRouter.get('/', fruitDBQueries.getAllFruits);
 
-fruitRouter.post('/', );
+fruitRouter.post('/', fruitDBQueries.createFruit );
 
 fruitRouter.get('/:id', fruitDBQueries.getSingleFruit);
 

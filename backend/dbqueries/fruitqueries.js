@@ -13,7 +13,15 @@ getSingleFruit = (req, res, next)=> {
    }).catch( (err) => { next (err)})
 }
 
+createFruit = (req, res, next) => {
+   const {name, weight, fsize} = req.body;
+   db.none('insert into fruits (name, weight, fsize)' + 'values (${name}, ${weight}, ${fsize})', {name, weight, fsize}).then( () => {
+      res.status(200).json({ message: "Fruit Created in DB"})
+   }).catch( err => next(err))
+}
+
 module.exports = {
    getAllFruits: getAllFruits,
    getSingleFruit: getSingleFruit,
+   createFruit: createFruit
 }
