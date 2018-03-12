@@ -33,7 +33,7 @@ export default class FruitsComp extends React.Component {
 						this.state.allFruits.map((fruit) => (
 							<div className='col-md-3 col-sm-3 col-xs-6' key={fruit.id} style={{padding: 0}}>
 								<h4 style={{ fontSize: fruit.fSize }}>
-									<NavLink to={"/fruits/" + fruit.id}> {fruit.name} </NavLink> </h4>
+									<NavLink to={"/fruit/" + fruit.id}> {fruit.name} </NavLink> </h4>
 								<p>
 									<i className='fa fa-scale'> </i> {fruit.weight}
 								</p>

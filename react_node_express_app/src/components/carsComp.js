@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import CarCreateComp from './carCreateFormComp';
+import CarProfileComp from './carProfileComp';
 import axios from 'axios';
 
 class CarsComp extends React.Component {
@@ -66,7 +67,7 @@ class CarsComp extends React.Component {
 							this.state.allCars.map((car) => (
 								<div className='col-md-3 col-sm-3 col-xs-6' key={car.id} style={{ padding: 0 }}>
 									<h4>
-										<NavLink to={"/cars/" + car.id} style={{ color: car.color }}> {car.name} </NavLink>
+										<NavLink to={"/car/" + car.id} style={{ color: car.color }}> {car.name} </NavLink>
 									</h4>
 									<p>
 										<i className='fa fa-dollar-sign'> </i> {car.price}
@@ -76,6 +77,8 @@ class CarsComp extends React.Component {
 						}
 					</div>
 				)}
+
+			
 				
 			</div>
 		);
