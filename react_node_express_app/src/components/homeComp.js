@@ -2,13 +2,15 @@ import React from 'react';
 import CarsComp from './carsComp';
 import FruitsComp from './fruitsComp';
 
-export const HomeComp = () => {
-   return (
+const HomeComp = () =>{
+   return(
       <div>
-         <CarsComp />
+         <CarsComp /> 
          <FruitsComp />
-      </div>
-   );
-}
+      </div >
+   )
+}   
+
+export default HomeComp;
 
 
