@@ -5,13 +5,29 @@ export default class FruitsComp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			allFruits: this.props.theFruits
+			allFruits: [],
+			showFruits: false,
+			fruitTitle: "Fruits"
 		}
+	}
+
+	componentDidMount() {
+		this.callApiGetAllFruits().then(res => this.setState({ allFruits: res.backFruits, showFruits: true })).catch(err => console.log(err));
+	}
+
+	callApiGetAllFruits = async () => {
+		const response = await fetch('/api/fruits');
+		const resBody = await response.json();
+		if (response.status !== 200) throw Error(resBody.message);
+		return resBody;
 	}
 	
 	render() {
 		return (
-			<div>
+			<div className='col-md-10 col-md-offset-1'>
+				<h3> {this.state.fruitTitle} </h3>
+				
+				{this.state.showFruits && (
 				<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
 					{
 						this.state.allFruits.map((fruit) => (
@@ -25,18 +41,7 @@ export default class FruitsComp extends React.Component {
 						))
 					}
 				</div>
-				<div className='col-md-12 hidden'>
-					{
-						this.props.theFruits.map((fruit) => (
-							<div className='col-md-4 col-sm-4' key={fruit.id}>
-								<h4 style={{ fontSize: fruit.fSize }}>{fruit.name} </h4>
-								<p>
-									<i className='fa fa-scale'> </i> {fruit.weight}
-								</p>
-							</div>
-						))
-					}
-				</div>
+				)}
 			</div>
 		)
 	}
