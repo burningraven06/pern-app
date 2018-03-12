@@ -1,9 +1,7 @@
 import React from 'react';
-// import { Route, BrowserRouter, NavLink } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-
-const NavbarComp = (props) => {
+const NavbarComp = () => {
    return (
       <nav className='navbar navbar-default'>
          <div className='container-fluid'>
@@ -14,7 +12,7 @@ const NavbarComp = (props) => {
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
                </button>
-               <NavLink className="navbar-brand" to={"/"}>React App</NavLink>
+               <NavLink to={"/"} className="navbar-brand">React App</NavLink>
             </div>
             <div className="collapse navbar-collapse" id="navbar-div">
                <ul className="nav navbar-nav ">

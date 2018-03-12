@@ -44,7 +44,7 @@ class CarsComp extends React.Component {
 		axios.post('/api/cars', {
 			name: name,
 			color: color,
-			price: parseInt(price)
+			price: parseInt(price, 10)
 		}).then((res) => {
 			console.log(res);
 			this.callApiGetAllCars().then((res) => { this.setState({ allCars: res.backCars }) }).catch(err => console.log(err));
