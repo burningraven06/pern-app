@@ -1,5 +1,7 @@
 import React from 'react';
 import './car.css';
+import axios from 'axios';
+
 class CarProfileComp extends React.Component{
    constructor(props){
       super(props);
@@ -19,21 +21,19 @@ class CarProfileComp extends React.Component{
       this.handleCarColorChange = this.handleCarColorChange.bind(this)
       this.handleCarPriceChange = this.handleCarPriceChange.bind(this)
       this.updateCar = this.updateCar.bind(this)
+      this.validateFormData = this.validateFormData.bind(this)
    }
    
    componentDidMount(){
       this.callApiGetSingleCar().then( res => this.setState({
-         theSingleCar: res.singleCar,
-         editedCarName: res.singleCar.name, 
-         editedCarColor: res.singleCar.color,
-         editedCarPrice: res.singleCar.price
+         theSingleCar: res.singleCar, 
       })).catch( err => console.log(err));
    }
 
    componentDidUpdate(){
-      this.callApiGetSingleCar().then(res => this.setState({
-         theSingleCar: res.singleCar
-      })).catch(err => console.log(err));
+      this.callApiGetSingleCar().then( res => this.setState({
+         theSingleCar: res.singleCar,
+      })).catch( err => console.log(err));
    }
 
    callApiGetSingleCar = async() => {
@@ -45,7 +45,8 @@ class CarProfileComp extends React.Component{
    }
 
    editModeOn = () => {
-      this.setState({ isEditing: true})
+      this.setState({ isEditing: true, editedCarName: this.state.theSingleCar.name,
+         editedCarColor: this.state.theSingleCar.color, editedCarPrice: this.state.theSingleCar.price})
    }
 
    editModeOff = () => {
@@ -65,10 +66,9 @@ class CarProfileComp extends React.Component{
    }
 
    validateFormData = () => {
-      if (this.state.editedCarName.length > 0 && this.state.editedCarColor.length > 0 &&  this.state.editedCarPrice.length > 0 ){
+      if (this.state.editedCarName.length > 0 && this.state.editedCarColor.length > 0 &&  this.state.editedCarPrice ){
          return true;
       }
-
       if (!this.state.editedCarName.length > 0) {
          this.setState({ nameInValid: true })
          document.getElementById('carNameInput').className += ' orange-boundary';
@@ -79,7 +79,7 @@ class CarProfileComp extends React.Component{
          document.getElementById('carColorInput').className += ' orange-boundary';
          return false;
       }
-      if (!this.state.editedCarPrice.length > 0) {
+      if (!this.state.editedCarPrice) {
          this.setState({ priceInValid: true });
          document.getElementById('carPriceInput').className += ' orange-boundary';
          return false;
@@ -93,11 +93,37 @@ class CarProfileComp extends React.Component{
       document.getElementById('carPriceInput').className -= ' orange-boundary';
    }
 
-   updateCar = (event) => {
-      event.preventDefault();
+   updateCarApiCall = () => {
+      const patchURL = '/api/cars/' + this.props.match.params.id
+		axios.patch(patchURL, {
+			name: this.state.editedCarName,
+			color: this.state.editedCarColor,
+			price: parseInt(this.state.editedCarPrice, 10)
+		}).then((res) => {
+			console.log(res);
+			this.callApiGetSingleCar().then( res => this.setState({
+            theSingleCar: res.singleCar,
+         })).catch( err => console.log(err))
+		}).catch(err => console.log(err))
+	}
+
+   updateCar = () => {
       this.resetValidationCSS()
       console.log(this.state.editedCarName, this.state.editedCarColor, this.state.editedCarPrice)
       this.validateFormData() && this.editModeOff()
+      this.updateCarApiCall()
+   }
+
+   handleInitCN = (event) =>{
+      this.setState({ editedCarName: event.target.value})
+   }
+
+   handleInitCP = (event) =>{
+      this.setState({ editedCarColor: event.target.value})
+   }
+
+   handleInitCW = (event) =>{
+      this.setState({ editedCarPrice: event.target.value})
    }
    
    render(){
@@ -125,9 +151,9 @@ class CarProfileComp extends React.Component{
                      </div>
                      <div className='col-sm-6'>
                         <h3> Edit Car</h3>
-                        <form className='form'>
+                        <form className='form' >
                            <label htmlFor='carName'> Name</label>
-                           <input type='text' className='form-control' name='carName' defaultValue={this.state.theSingleCar.name} onChange={this.handleCarNameChange} required="true" id='carNameInput' /> 
+                           <input type='text' className='form-control' name='carName' defaultValue={this.state.theSingleCar.name} onChange={this.handleCarNameChange} id='carNameInput' /> 
                            {this.state.nameInValid && <span className='input-err'> ** Name Invalid</span>} <br/>
 
                            <label htmlFor='carColor'> Color</label>
