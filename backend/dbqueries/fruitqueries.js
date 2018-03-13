@@ -20,8 +20,15 @@ createFruit = (req, res, next) => {
    }).catch( err => next(err))
 }
 
+updateFruit = (req, res, next) => {
+  db.none('update fruits set name=$1, weight=$2, fsize=$3 where id=$4', [req.body.name, req.body.weight, req.body.fsize, parseInt(req.params.id)]).then( () => {
+    res.status(200).json({ message: "Car updated in DB"})
+  }).catch( err => next (err))
+}
+
 module.exports = {
    getAllFruits: getAllFruits,
    getSingleFruit: getSingleFruit,
-   createFruit: createFruit
+   createFruit: createFruit,
+   updateFruit: updateFruit
 }
