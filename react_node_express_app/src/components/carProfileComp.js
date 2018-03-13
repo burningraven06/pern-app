@@ -114,20 +114,7 @@ class CarProfileComp extends React.Component{
       this.updateCarApiCall()
    }
 
-   handleInitCN = (event) =>{
-      this.setState({ editedCarName: event.target.value})
-   }
-
-   handleInitCP = (event) =>{
-      this.setState({ editedCarColor: event.target.value})
-   }
-
-   handleInitCW = (event) =>{
-      this.setState({ editedCarPrice: event.target.value})
-   }
-   
    render(){
-      
       return(
          <div className='col-md-10 col-md-offset-1'> 
             <div className='col-sm-4'>
