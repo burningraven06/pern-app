@@ -9,10 +9,8 @@ fruitRouter.post('/', fruitDBQueries.createFruit );
 
 fruitRouter.get('/:id', fruitDBQueries.getSingleFruit);
 
-fruitRouter.patch('/:id', (req, res) => {
-
-});
-
+fruitRouter.patch('/:id', fruitDBQueries.updateFruit);
+ 
 fruitRouter.delete('/:id', (req, res) => {
 
 });
