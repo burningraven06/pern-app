@@ -1,5 +1,7 @@
 import React from 'react';
 import './form-error.css';
+import axios from 'axios';
+
 export default class FruitProfileComp extends React.Component{
   constructor(props){
     super(props);
@@ -86,6 +88,11 @@ export default class FruitProfileComp extends React.Component{
     document.getElementById('fruitNameInput').className -= ' orange-boundary';
     document.getElementById('fruitWeightInput').className -= ' orange-boundary';
     document.getElementById('fruitFSizeInput').className -= ' orange-boundary';
+  }
+
+  updateFruitApiCall = () => {
+    const patchURL = '/api/fruits/' + this.props.match.params.id
+    axios.patch().then().catch()
   }
 
   updateFruit = () => {
