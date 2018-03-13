@@ -109,13 +109,16 @@ export default class FruitProfileComp extends React.Component{
                 <h3> Edit Car </h3>
                 <form className='form'>
                     <label htmlFor='fruitName'> Name </label>
-                    <input type='text' className='form-control' name='fruitName' defaultValue={this.state.editedFruitName} onChange={this.handleFruitNameChange} id='fruitNameInput' /> <br/>
+                    <input type='text' className='form-control' name='fruitName' defaultValue={this.state.editedFruitName} onChange={this.handleFruitNameChange} id='fruitNameInput' /> 
+                    { this.state.nameInValid && <span className='input-err'> ** Name Invalid</span>} <br/>
 
                     <label htmlFor='fruitWeight'> Weight </label>
-                    <input type='text' className='form-control' name='fruitWeight' onChange={this.handleFruitWeightChange} defaultValue={this.state.editedFruitWeight} id='fruitWeightInput' /> <br/>
+                    <input type='text' className='form-control' name='fruitWeight' onChange={this.handleFruitWeightChange} defaultValue={this.state.editedFruitWeight} id='fruitWeightInput' /> 
+                    {this.state.weightInValid && <span className='input-err'> ** Weight Invalid</span>} <br />
 
                     <label htmlFor='fruitFSize'> FSize </label>
                     <input type='text' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
+                    {this.state.fSzieInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
 
                     <button className='btn btn-primary' onClick={this.updateFruit}>Save</button>
                     <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>
