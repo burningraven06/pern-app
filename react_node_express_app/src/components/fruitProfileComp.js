@@ -80,6 +80,13 @@ export default class FruitProfileComp extends React.Component{
     }
   }
 
+  resetValidationCSS = () => {
+    this.setState({ nameInValid: false, weightInValid: false, fSizeInValid: false })
+    document.getElementById('fruitNameInput').className -= ' orange-boundary';
+    document.getElementById('fruitWeightInput').className -= ' orange-boundary';
+    document.getElementById('fruitFSizeInput').className -= ' orange-boundary';
+  }
+
   updateFruit = () => {
     this.validateFormData && this.editModeOff()
   }
