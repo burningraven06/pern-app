@@ -19,6 +19,7 @@ export default class FruitProfileComp extends React.Component{
     this.handleFruitWeightChange = this.handleFruitWeightChange.bind(this)
     this.handleFruitFSizeChange = this.handleFruitFSizeChange.bind(this)
     this.validateFormData = this.validateFormData.bind(this)
+    this.updateFruit = this.updateFruit.bind(this)
   }
 
   componentDidMount(){
@@ -88,6 +89,7 @@ export default class FruitProfileComp extends React.Component{
   }
 
   updateFruit = () => {
+    this.resetValidationCSS()
     this.validateFormData && this.editModeOff()
   }
 
