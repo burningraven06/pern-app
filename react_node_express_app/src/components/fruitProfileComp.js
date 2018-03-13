@@ -92,12 +92,22 @@ export default class FruitProfileComp extends React.Component{
 
   updateFruitApiCall = () => {
     const patchURL = '/api/fruits/' + this.props.match.params.id
-    axios.patch().then().catch()
+    axios.patch(patchURL, {
+      name: this.state.editedFruitName,
+      weight: this.state.editedFruitWeight,
+      fsize: this.state.editedFruitFSize
+    }).then( (res) => {
+      console.log(res);
+      this.callApiGetSingleFruit().then( (res) => this.setState({
+        theSingleFruit: res.singleFruit
+      })).catch( err => console.log(err))
+    }).catch(err => console.log(err))
   }
 
   updateFruit = () => {
     this.resetValidationCSS()
     this.validateFormData && this.editModeOff()
+    this.updateFruitApiCall()
   }
 
   render(){
