@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './car.css';
 class CarProfileComp extends React.Component{
    constructor(props){
       super(props);
@@ -8,7 +8,10 @@ class CarProfileComp extends React.Component{
          isEditing: false,
          editedCarName: "",
          editedCarColor: "",
-         editedCarPrice: ""
+         editedCarPrice: "",
+         nameInValid: false,
+         colorInValid: false,
+         priceInValid: false,
       }
       this.editModeOn = this.editModeOn.bind(this)
       this.editModeOff = this.editModeOff.bind(this)
@@ -20,7 +23,10 @@ class CarProfileComp extends React.Component{
    
    componentDidMount(){
       this.callApiGetSingleCar().then( res => this.setState({
-         theSingleCar: res.singleCar
+         theSingleCar: res.singleCar,
+         editedCarName: res.singleCar.name, 
+         editedCarColor: res.singleCar.color,
+         editedCarPrice: res.singleCar.price
       })).catch( err => console.log(err));
    }
 
@@ -58,12 +64,44 @@ class CarProfileComp extends React.Component{
       this.setState({ editedCarPrice: event.target.value})
    }
 
+   validateFormData = () => {
+      if (this.state.editedCarName.length > 0 && this.state.editedCarColor.length > 0 &&  this.state.editedCarPrice.length > 0 ){
+         return true;
+      }
+
+      if (!this.state.editedCarName.length > 0) {
+         this.setState({ nameInValid: true })
+         document.getElementById('carNameInput').className += ' orange-boundary';
+         return false;
+      }
+      if (!this.state.editedCarColor.length > 0) {
+         this.setState({ colorInValid: true });
+         document.getElementById('carColorInput').className += ' orange-boundary';
+         return false;
+      }
+      if (!this.state.editedCarPrice.length > 0) {
+         this.setState({ priceInValid: true });
+         document.getElementById('carPriceInput').className += ' orange-boundary';
+         return false;
+      }
+   }
+   
+   resetValidationCSS = () => {
+      this.setState({ nameInValid: false, colorInValid: false, priceInValid: false})
+      document.getElementById('carPriceInput').className -= ' orange-boundary';
+      document.getElementById('carColorInput').className -= ' orange-boundary';
+      document.getElementById('carPriceInput').className -= ' orange-boundary';
+   }
+
    updateCar = (event) => {
       event.preventDefault();
+      this.resetValidationCSS()
       console.log(this.state.editedCarName, this.state.editedCarColor, this.state.editedCarPrice)
-      this.editModeOff()
+      this.validateFormData() && this.editModeOff()
    }
+   
    render(){
+      
       return(
          <div className='col-md-10 col-md-offset-1'> 
             <div className='col-sm-4'>
@@ -88,9 +126,18 @@ class CarProfileComp extends React.Component{
                      <div className='col-sm-6'>
                         <h3> Edit Car</h3>
                         <form className='form'>
-                           <input type='text' className='form-control' name='carName' defaultValue={this.state.theSingleCar.name} onChange={this.handleCarNameChange} required='true' /> <br/>
-                           <input type='text' className='form-control' name='carColor' defaultValue={this.state.theSingleCar.color} onChange={this.handleCarColorChange} /> <br/>
-                           <input type='text' className='form-control' name='carPrice' defaultValue={this.state.theSingleCar.price} onChange={this.handleCarPriceChange} /> 
+                           <label htmlFor='carName'> Name</label>
+                           <input type='text' className='form-control' name='carName' defaultValue={this.state.theSingleCar.name} onChange={this.handleCarNameChange} required="true" id='carNameInput' /> 
+                           {this.state.nameInValid && <span className='input-err'> ** Name Invalid</span>} <br/>
+
+                           <label htmlFor='carColor'> Color</label>
+                           <input type='text' className='form-control' name='carColor' defaultValue={this.state.theSingleCar.color} onChange={this.handleCarColorChange} id='carColorInput' /> 
+                           {this.state.colorInValid && <span className='input-err'> ** Color Invalid</span>} <br/>
+
+                           <label htmlFor='carPrice'> Price</label>
+                           <input type='text' className='form-control' name='carPrice' defaultValue={this.state.theSingleCar.price} onChange={this.handleCarPriceChange} id='carPriceInput' /> 
+                           {this.state.priceInValid && <span className='input-err'> ** Price Invalid</span>}
+
                         </form>
                         <button className='btn btn-primary' type='submit' onClick={this.updateCar}> Save</button>
                         <button className='btn btn-default' onClick ={this.editModeOff}> Close</button>
