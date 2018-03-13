@@ -1,4 +1,5 @@
 import React from 'react';
+import './form-error.css';
 export default class FruitProfileComp extends React.Component{
   constructor(props){
     super(props);
@@ -56,7 +57,9 @@ export default class FruitProfileComp extends React.Component{
   }
 
   validateFormData = () => {
-    return true
+    if (this.state.editedFruitName.length > 0 && this.state.editedFruitWeight.length > 0 &&  this.state.editedFruitFSize ){
+			return true;
+    }
   }
 
   updateFruit = () => {
