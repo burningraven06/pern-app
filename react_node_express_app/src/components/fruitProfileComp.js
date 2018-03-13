@@ -8,7 +8,10 @@ export default class FruitProfileComp extends React.Component{
       isEditing: false,
       editedFruitName: "",
       editedFruitWeight: "",
-      editedFruitFSize: ""
+      editedFruitFSize: "",
+      nameInValid: false,
+      weightInValid: false,
+      fSzieInValid: false,
     }
     this.editModeOn = this.editModeOn.bind(this)
     this.editModeOff = this.editModeOff.bind(this)
@@ -59,6 +62,21 @@ export default class FruitProfileComp extends React.Component{
   validateFormData = () => {
     if (this.state.editedFruitName.length > 0 && this.state.editedFruitWeight.length > 0 &&  this.state.editedFruitFSize ){
 			return true;
+    }
+    if (!this.state.editedFruitName.length > 0) {
+      this.setState({ nameInValid: true })
+      document.getElementById('fruitNameInput').className += ' orange-boundary';
+      return false;
+    }
+    if (!this.state.editedFruitWeight.length > 0) {
+      this.setState({ weightInValid: true });
+      document.getElementById('fruitWeightInput').className += ' orange-boundary';
+      return false;
+    }
+    if (!this.state.editedFruitFSize) {
+      this.setState({ fSizeInValid: true });
+      document.getElementById('fruitFSizeInput').className += ' orange-boundary';
+      return false;
     }
   }
 
