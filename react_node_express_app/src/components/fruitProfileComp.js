@@ -14,6 +14,7 @@ export default class FruitProfileComp extends React.Component{
     this.handleFruitNameChange = this.handleFruitNameChange.bind(this)
     this.handleFruitWeightChange = this.handleFruitWeightChange.bind(this)
     this.handleFruitFSizeChange = this.handleFruitFSizeChange.bind(this)
+    this.validateFormData = this.validateFormData.bind(this)
   }
 
   componentDidMount(){
@@ -54,8 +55,12 @@ export default class FruitProfileComp extends React.Component{
     this.setState({ editedFruitFSize: event.target.value})
   }
 
+  validateFormData = () => {
+    return true
+  }
+
   updateFruit = () => {
-    this.editModeOff()
+    this.validateFormData && this.editModeOff()
   }
 
   render(){
