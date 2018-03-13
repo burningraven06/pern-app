@@ -12,6 +12,8 @@ export default class FruitProfileComp extends React.Component{
     this.editModeOn = this.editModeOn.bind(this)
     this.editModeOff = this.editModeOff.bind(this)
     this.handleFruitNameChange = this.handleFruitNameChange.bind(this)
+    this.handleFruitWeightChange = this.handleFruitWeightChange.bind(this)
+    this.handleFruitFSizeChange = this.handleFruitFSizeChange.bind(this)
   }
 
   componentDidMount(){
@@ -45,6 +47,12 @@ export default class FruitProfileComp extends React.Component{
   handleFruitNameChange = (event) => {
     this.setState({ editedFruitName: event.target.value})
   }
+  handleFruitWeightChange = (event) => {
+    this.setState({ editedFruitWeight: event.target.value})
+  }
+  handleFruitFSizeChange = (event) => {
+    this.setState({ editedFruitFSize: event.target.value})
+  }
 
   updateFruit = () => {
     this.editModeOff()
@@ -75,7 +83,13 @@ export default class FruitProfileComp extends React.Component{
                 <h3> Edit Car </h3>
                 <form className='form'>
                     <label htmlFor='fruitName'> Name </label>
-                    <input type='text' className='form-control' name='fruitName' defaultValue={this.state.editedFruitName} onChange={this.handleFruitNameChange} id='fruitNameInput' />
+                    <input type='text' className='form-control' name='fruitName' defaultValue={this.state.editedFruitName} onChange={this.handleFruitNameChange} id='fruitNameInput' /> <br/>
+
+                    <label htmlFor='fruitWeight'> Weight </label>
+                    <input type='text' className='form-control' name='fruitWeight' onChange={this.handleFruitWeightChange} defaultValue={this.state.editedFruitWeight} id='fruitWeightInput' /> <br/>
+
+                    <label htmlFor='fruitFSize'> FSize </label>
+                    <input type='text' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
 
                     <button className='btn btn-primary' onClick={this.updateFruit}>Save</button>
                     <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>
