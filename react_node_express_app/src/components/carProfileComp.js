@@ -14,6 +14,8 @@ class CarProfileComp extends React.Component{
 			nameInValid: false,
 			colorInValid: false,
 			priceInValid: false,
+			carUpdated: false,
+			carDeleted: false
 		}
 		this.editModeOn = this.editModeOn.bind(this)
 		this.editModeOff = this.editModeOff.bind(this)
@@ -47,7 +49,7 @@ class CarProfileComp extends React.Component{
 
   editModeOn = () => {
 		this.setState({ isEditing: true, editedCarName: this.state.theSingleCar.name,
-				editedCarColor: this.state.theSingleCar.color, editedCarPrice: this.state.theSingleCar.price})
+			editedCarColor: this.state.theSingleCar.color, editedCarPrice: this.state.theSingleCar.price, carUpdated: false})
   }
 
 	editModeOff = () => {
@@ -111,7 +113,8 @@ class CarProfileComp extends React.Component{
   updateCar = () => {
     this.resetValidationCSS()
     this.validateFormData() && this.editModeOff()
-    this.updateCarApiCall()
+		this.updateCarApiCall()
+		this.setState({ carUpdated: true})
 	}
 
 	deleteCarApiCall = () => {
@@ -134,6 +137,12 @@ class CarProfileComp extends React.Component{
     return(
       <div className='col-md-10 col-md-offset-1'> 
         <div className='col-sm-4'>
+					{this.state.carUpdated &&
+						<div className='alert alert-success alert-dismissible' role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<p> Car Updated</p>
+						</div>
+					}
           <h2> {this.state.theSingleCar.name} </h2>
 					<p> Color: <i className='fa fa-paint-brush'> </i> {this.state.theSingleCar.color} </p>
 					<p> Price: $ {this.state.theSingleCar.price }</p>

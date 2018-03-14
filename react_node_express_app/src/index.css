@@ -4,8 +4,8 @@ body {
   font-family: sans-serif;
 }
 
-
-.btn, .form-control{
+.btn, .form-control, .alert{
   border-radius: 0;  
 }
+
 
