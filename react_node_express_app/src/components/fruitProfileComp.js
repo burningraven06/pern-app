@@ -22,6 +22,7 @@ export default class FruitProfileComp extends React.Component{
     this.handleFruitFSizeChange = this.handleFruitFSizeChange.bind(this)
     this.validateFormData = this.validateFormData.bind(this)
     this.updateFruit = this.updateFruit.bind(this)
+    this.deleteFruit = this.deleteFruit.bind(this)
   }
 
   componentDidMount(){
@@ -110,6 +111,20 @@ export default class FruitProfileComp extends React.Component{
     this.updateFruitApiCall()
   }
 
+  deleteFruitApiCall = () => {
+    const deleteURL = '/api/fruits/' + this.props.match.params.id
+    axios.delete(deleteURL).then( (res) => console.log(res.message)).catch(err => console.log(err));
+  }
+
+  redirectToFruits = () => {
+    this.props.history.push('/fruits')
+  }
+
+  deleteFruit = () =>{
+    this.deleteFruitApiCall()
+    this.redirectToFruits()
+  }
+
   render(){
     return(
       <div className='col-md-10 col-md-offset-1'>
@@ -120,7 +135,7 @@ export default class FruitProfileComp extends React.Component{
             {! this.state.isEditing && 
               <div>
                   <button className='btn btn-success' onClick={this.editModeOn}> Edit </button>
-                  <button className='btn btn-danger'> Delete </button>
+                  <button className='btn btn-danger' onClick={this.deleteFruit}> Delete </button>
               </div>
             }
         </div>

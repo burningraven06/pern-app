@@ -137,12 +137,12 @@ class CarProfileComp extends React.Component{
     return(
       <div className='col-md-10 col-md-offset-1'> 
         <div className='col-sm-4'>
-					{this.state.carUpdated &&
+					{/* {this.state.carUpdated &&
 						<div className='alert alert-success alert-dismissible' role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<p> Car Updated</p>
 						</div>
-					}
+					} */}
           <h2> {this.state.theSingleCar.name} </h2>
 					<p> Color: <i className='fa fa-paint-brush'> </i> {this.state.theSingleCar.color} </p>
 					<p> Price: $ {this.state.theSingleCar.price }</p>
