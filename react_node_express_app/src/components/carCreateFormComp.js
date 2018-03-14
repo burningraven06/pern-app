@@ -1,4 +1,5 @@
 import React from 'react';
+import  './form-error.css';
 
 export default class CarCreateComp extends React.Component{
   constructor(props){
@@ -32,7 +33,11 @@ export default class CarCreateComp extends React.Component{
     if (this.state.carname.length > 0 && this.state.carcolor.length> 0 && this.state.carprice){
       return true; 
     }
-    return false;
+    if (!this.state.carname.length > 0){
+      this.setState({ nameInValid: true})
+      document.getElementById('carNameInput').className += ' orange-boundary';
+      return false;
+    }
   }
 
   sendCarFormData = (event) => {
