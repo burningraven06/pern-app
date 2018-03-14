@@ -38,12 +38,21 @@ export default class CarCreateComp extends React.Component{
       document.getElementById('carNameInput').className += ' orange-boundary';
       return false;
     }
+    if (!this.state.carcolor.length > 0) {
+      this.setState({ colorInValid: true })
+      document.getElementById('carColorInput').className += ' orange-boundary';
+      return false;
+    } 
+    if (!this.state.carprice) {
+      this.setState({ priceInValid: true })
+      document.getElementById('carPriceInput').className += ' orange-boundary';
+      return false;
+    }
   }
 
   sendCarFormData = (event) => {
     event.preventDefault()
-
-    // console.log(this.state.carname, this.state.carcolor, this.state.carprice);
+    
     this.validateFormData() && this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
   }
   
