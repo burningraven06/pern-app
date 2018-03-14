@@ -9,17 +9,20 @@ class CarsComp extends React.Component {
 		this.state = {
 			allCars: [],
 			carTitle: "Cars",
+			showTitle: false,
 			showCars: false,
+			showSearch: false,
 			showCarForm: false,
 			showCarCreateBtn: true,
 		}
 		this.renderCarForm = this.renderCarForm.bind(this)
 		this.receiveCarFormData = this.receiveCarFormData.bind(this)
 		this.unrenderCarForm = this.unrenderCarForm.bind(this)
+		this.searchCar = this.searchCar.bind(this)
 	}
 
 	componentDidMount() {
-		this.getAllCarsApiCall().then(res => this.setState({ allCars: res.backCars, showCars: true })).catch(err => console.log(err));
+		this.getAllCarsApiCall().then(res => this.setState({ allCars: res.backCars, showCars: true, showTitle: true, showSearch: true })).catch(err => console.log(err));
 	}
 
 	getAllCarsApiCall = async () => {
@@ -31,8 +34,7 @@ class CarsComp extends React.Component {
 
 	renderCarForm = () => {
 		this.setState({
-			showCars: false, carTitle: "Create New Car", showCarForm: true,
-			showCarCreateBtn: false
+			showCars: false, carTitle: "Create New Car", showCarForm: true, showCarCreateBtn: false, showTitle: false, showSearch: false
 		})
 	}
 
@@ -42,7 +44,7 @@ class CarsComp extends React.Component {
 	} 
 
 	unrenderCarForm = () => {
-		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, })
+		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, showTitle: true, showSearch: false})
 	}
 
 	createNewCarApiCall = (name, color, price) => {
@@ -56,10 +58,32 @@ class CarsComp extends React.Component {
 		}).catch(err => console.log(err))
 	}
 
+	showResults = (searchQuery) => {
+		this.setState({ showSearchResults: true, showCars: false, showCarCreateBtn: false, showTitle: false })
+	}
+
+	showNoResults = () => {
+		this.setState({ showSearchResults: false, showCars: true, showCarCreateBtn: true, showTitle: true })
+	}
+
+	searchCar = (event) =>{
+		event.target.value? this.showResults(event.target.value) : this.showNoResults()
+	}
+
 	render() {
 		return (
 			<div className='col-md-10 col-md-offset-1'>
-				<h3 className={this.state.showCarForm? 'text-center': ''}> {this.state.carTitle} </h3>
+				{this.state.showSearch && <div className='col-sm-12 pad-zero mb24'>
+					<div className='col-sm-4 pad-zero'>
+					<h3> Search</h3>
+						<form className='form'> 
+							<input type='text' className='form-control' onChange={this.searchCar} placeholder='Search' />
+						</form>
+						{this.state.showSearchResults && <p> Search Results</p>}
+					</div>
+				</div>}
+
+				{this.state.showTitle && <h3 className={this.state.showCarForm? 'text-center': ''}> {this.state.carTitle} </h3> }
 				
 				{this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCarForm}> Create</button> }
 

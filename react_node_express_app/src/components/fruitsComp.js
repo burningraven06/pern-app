@@ -16,7 +16,7 @@ export default class FruitsComp extends React.Component {
 			showFruitForm: false,
 			showFruitCreateBtn: true,
 			searchResults: [],
-			showResults: false
+			showSearchResults: false
 		}
 		this.renderFruitForm = this.renderFruitForm.bind(this);
 		this.receiveFruitFormData = this.receiveFruitFormData;
@@ -68,11 +68,11 @@ export default class FruitsComp extends React.Component {
 		searchRes = searchRes.filter((fruit) => {
 			return fruit.name.toString().toLowerCase().search( searchQuery.toString().toLowerCase() ) !== -1;
 		});
-		this.setState({ showResults: true, searchResults: searchRes, showFruits: false, showFruitCreateBtn: false, showTitle: false})
+		this.setState({ showSearchResults: true, searchResults: searchRes, showFruits: false, showFruitCreateBtn: false, showTitle: false})
 	}
 	
 	showNoResults = () => {
-		this.setState({ showResults: false, showFruits: true, showFruitCreateBtn:true, showTitle:true })
+		this.setState({ showSearchResults: false, showFruits: true, showFruitCreateBtn:true, showTitle:true })
 	}
 
 	searchFruit = (event) => {	
@@ -88,7 +88,7 @@ export default class FruitsComp extends React.Component {
 						<form className='form'>
 							<input type='text' onChange={this.searchFruit} placeholder='Search' className='form-control' />
 						</form>
-						{this.state.showResults && (
+						{this.state.showSearchResults && (
 							<div style={{marginTop: '24px'}}>
 								<p> Search Results</p>
 								{this.state.searchResults.map((fruit) => (
