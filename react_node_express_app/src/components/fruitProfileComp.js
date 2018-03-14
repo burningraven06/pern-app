@@ -61,12 +61,41 @@ export default class FruitProfileComp extends React.Component{
   }
 
   handleFruitNameChange = (event) => {
+    if(!event.target.value){
+      this.setState({ nameInValid: true }); 
+      document.getElementById('fruitNameInput').classList.add('orange-boundary');
+      document.getElementById('editFruitBtn').classList.add('disabled');
+    } else{
+      this.setState({ nameInValid: false });
+      document.getElementById('fruitNameInput').classList.remove('orange-boundary');
+      document.getElementById('editFruitBtn').classList.remove('disabled');
+    }
     this.setState({ editedFruitName: event.target.value})
   }
+
   handleFruitWeightChange = (event) => {
+    if (!event.target.value) {
+      this.setState({ weightInValid: true });
+      document.getElementById('fruitWeightInput').classList.add('orange-boundary');
+      document.getElementById('editFruitBtn').classList.add('disabled');
+    } else {
+      this.setState({ weightInValid: false });
+      document.getElementById('fruitWeightInput').classList.remove('orange-boundary');
+      document.getElementById('editFruitBtn').classList.remove('disabled');
+    }
     this.setState({ editedFruitWeight: event.target.value})
   }
+
   handleFruitFSizeChange = (event) => {
+    if (!event.target.value) {
+      this.setState({ fSizeInValid: true });
+      document.getElementById('fruitFSizeInput').classList.add('orange-boundary');
+      document.getElementById('editFruitBtn').classList.add('disabled');
+    } else{
+      this.setState({ fSizeInValid: false });
+      document.getElementById('fruitFSizeInput').classList.remove('orange-boundary');
+      document.getElementById('editFruitBtn').classList.remove('disabled');
+    }
     this.setState({ editedFruitFSize: event.target.value})
   }
 
@@ -74,28 +103,7 @@ export default class FruitProfileComp extends React.Component{
     if (this.state.editedFruitName.length > 0 && this.state.editedFruitWeight.length > 0 &&  this.state.editedFruitFSize ){
 			return true;
     }
-    if (!this.state.editedFruitName.length > 0) {
-      this.setState({ nameInValid: true });
-      document.getElementById('fruitNameInput').classList.add('orange-boundary');
-      return false;
-    }
-    if (!this.state.editedFruitWeight.length > 0) {
-      this.setState({ weightInValid: true });
-      document.getElementById('fruitWeightInput').classList.add('orange-boundary');
-      return false;
-    }
-    if (!this.state.editedFruitFSize) {
-      this.setState({ fSizeInValid: true });
-      document.getElementById('fruitFSizeInput').classList.add('orange-boundary');
-      return false;
-    }
-  }
-
-  resetValidationCSS = () => {
-    this.setState({ nameInValid: false, weightInValid: false, fSizeInValid: false })
-    document.getElementById('fruitNameInput').classList.remove('orange-boundary');
-    document.getElementById('fruitWeightInput').classList.remove('orange-boundary');
-    document.getElementById('fruitFSizeInput').classList.remove('orange-boundary');
+    return false;
   }
 
   updateFruitApiCall = () => {
@@ -114,7 +122,6 @@ export default class FruitProfileComp extends React.Component{
 
   updateFruit = (event) => {
     event.preventDefault()
-    this.resetValidationCSS()
     this.validateFormData() && this.editModeOff()
     this.validateFormData() && this.updateFruitApiCall()
   }
@@ -169,7 +176,7 @@ export default class FruitProfileComp extends React.Component{
                     <input type='text' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
                     {this.state.fSizeInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
 
-                    <button className='btn btn-primary' onClick={this.updateFruit}>Save</button>
+                    <button className='btn btn-primary' onClick={this.updateFruit} id='editFruitBtn' >Save</button>
                     <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>
                 </form>
               </div>
