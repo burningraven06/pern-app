@@ -57,14 +57,41 @@ class CarProfileComp extends React.Component{
 	}
 
 	handleCarNameChange = (event) => {
+		if (!event.target.value){
+			this.setState({ nameInValid: true }); 
+			document.getElementById('carNameInput').classList.add('orange-boundary');
+			document.getElementById('editCarBtn').classList.add('disabled');
+		} else {
+			this.setState({ nameInValid: false });
+			document.getElementById('carPriceInput').classList.remove('orange-boundary');
+			document.getElementById('editCarBtn').classList.remove('disabled');
+		}
 		this.setState({ editedCarName: event.target.value})
 	}
 
 	handleCarColorChange = (event) => {
+		if (!event.target.value) {
+			this.setState({ colorInValid: true });
+			document.getElementById('carColorInput').classList.add('orange-boundary');
+			document.getElementById('editCarBtn').classList.add('disabled');
+		} else {
+			this.setState({ colorInValid: false });
+			document.getElementById('carColorInput').classList.remove('orange-boundary');
+			document.getElementById('editCarBtn').classList.remove('disabled');
+		}
 		this.setState({ editedCarColor: event.target.value})
 	}
 	
 	handleCarPriceChange = (event) => {
+		if (!event.target.value) {
+			this.setState({ priceInValid: true });
+			document.getElementById('carPriceInput').classList.add('orange-boundary');
+			document.getElementById('editCarBtn').classList.add('disabled');
+		} else {
+			this.setState({ priceInValid: false });
+			document.getElementById('carPriceInput').classList.remove('orange-boundary');
+			document.getElementById('editCarBtn').classList.remove('disabled');
+		}
 		this.setState({ editedCarPrice: event.target.value})
 	}
 
@@ -72,29 +99,8 @@ class CarProfileComp extends React.Component{
 		if (this.state.editedCarName.length > 0 && this.state.editedCarColor.length > 0 &&  this.state.editedCarPrice ){
 			return true;
 		}
-		if (!this.state.editedCarName.length > 0) {
-			this.setState({ nameInValid: true });
-			document.getElementById('carNameInput').classList.add('orange-boundary');
-			return false;
-		}
-		if (!this.state.editedCarColor.length > 0) {
-			this.setState({ colorInValid: true });
-			document.getElementById('carColorInput').classList.add('orange-boundary');
-			return false;
-		}
-		if (!this.state.editedCarPrice) {
-			this.setState({ priceInValid: true });
-			document.getElementById('carPriceInput').classList.add('orange-boundary');
-			return false;
-		}
+		return false
 	}
-   
-  resetValidationCSS = () => {
-		this.setState({ nameInValid: false, colorInValid: false, priceInValid: false})
-		document.getElementById('carPriceInput').classList.remove('orange-boundary');
-		document.getElementById('carColorInput').classList.remove('orange-boundary');
-		document.getElementById('carPriceInput').classList.remove('orange-boundary');
-  }
 
 	updateCarApiCall = () => {
 		const patchURL = '/api/cars/' + this.props.match.params.id
@@ -111,7 +117,6 @@ class CarProfileComp extends React.Component{
 	}
 
   updateCar = () => {
-    this.resetValidationCSS()
 		this.validateFormData() && this.editModeOff()
 		this.validateFormData() && this.updateCarApiCall()
 		this.setState({ carUpdated: true})
@@ -177,7 +182,7 @@ class CarProfileComp extends React.Component{
 									{this.state.priceInValid && <span className='input-err'> ** Price Invalid</span>}
 
 								</form>
-								<button className='btn btn-primary' type='submit' onClick={this.updateCar}> Save</button>
+								<button className='btn btn-primary' type='submit' onClick={this.updateCar} id='editCarBtn'> Save</button>
 								<button className='btn btn-default' onClick ={this.editModeOff}> Close</button>
 							</div>
 						</div>

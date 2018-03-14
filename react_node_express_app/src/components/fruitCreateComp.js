@@ -20,55 +20,70 @@ export default class FruitCreateComp extends React.Component {
   }
 
   handleFruitNameChange = (event) => {
-    this.setState({
-      fruitName: event.target.value
-    })
+    if (!event.target.value){
+      this.setState({ nameInValid: true });
+      document.getElementById('fruitNameInput').classList.add('orange-boundary');
+      document.getElementById('createFruitBtn').classList.add('disabled');
+    } else{
+      this.setState({ nameInValid: false });
+      document.getElementById('fruitNameInput').classList.remove('orange-boundary');
+      document.getElementById('createFruitBtn').classList.remove('disabled');
+    }
+    this.setState({ fruitName: event.target.value })
   }
 
   handleFruitWeightChange = (event) => {
-    this.setState({
-      fruitWeight: event.target.value
-    })
+    if (!event.target.value) {
+      this.setState({ weightInValid: true });
+      document.getElementById('fruitWeightInput').classList.add('orange-boundary');
+      document.getElementById('createFruitBtn').classList.add('disabled');
+    } else {
+      this.setState({ weightInValid: false });
+      document.getElementById('fruitWeightInput').classList.remove('orange-boundary');
+      document.getElementById('createFruitBtn').classList.remove('disabled');
+    }
+    this.setState({ fruitWeight: event.target.value })
   }
 
   handleFruitFSizeChange = (event) => {
-    this.setState({
-      fruitFSize: event.target.value
-    })
+    if (!event.target.value) {
+      this.setState({ fSizeInValid: true });
+      document.getElementById('fruitFSizeInput').classList.add('orange-boundary');
+      document.getElementById('createFruitBtn').classList.add('disabled');
+    } else {
+      this.setState({ fSizeInValid: false });
+      document.getElementById('fruitFSizeInput').classList.remove('orange-boundary');
+      document.getElementById('createFruitBtn').classList.remove('disabled');
+    }
+    this.setState({ fruitFSize: event.target.value })
   }
 
   validateFormData = () => {
     if (this.state.fruitName.length > 0 && this.state.fruitWeight.length > 0 && this.state.fruitFSize){
       return true;
     }
-    if (!this.state.fruitName.length > 0){
-      this.setState({ nameInValid: true});
+    if (!this.state.fruitName.length > 0) {
+      this.setState({ nameInValid: true })
       document.getElementById('fruitNameInput').classList.add('orange-boundary');
+      document.getElementById('createFruitBtn').classList.add('disabled');
       return false;
     }
     if (!this.state.fruitWeight.length > 0) {
-      this.setState({ weightInValid: true });
+      this.setState({ weightInValid: true })
       document.getElementById('fruitWeightInput').classList.add('orange-boundary');
+      document.getElementById('createFruitBtn').classList.add('disabled');
       return false;
     }
-    if (!this.state.fruitFSize.length > 0) {
-      this.setState({ fSizeInValid: true });
+    if (!this.state.fruitFSize) {
+      this.setState({ fSizeInValid: true })
       document.getElementById('fruitFSizeInput').classList.add('orange-boundary');
+      document.getElementById('createFruitBtn').classList.add('disabled');
       return false;
     }
-  }
-  
-  resetValidationCSS = () => {
-    this.setState({nameInValid: false,weightInValid: false,fSizeInValid: false})
-   
-    document.getElementById('fruitNameInput').classList.remove("orange-boundary");
-    document.getElementById('fruitWeightInput').classList.remove('orange-boundary');
-    document.getElementById('fruitFSizeInput').classList.remove('orange-boundary');
   }
 
   sendFruitFormData = (event) => {
     event.preventDefault()
-    this.resetValidationCSS()
     this.validateFormData() && this.props.receiveFormData(this.state.fruitName, this.state.fruitWeight, this.state.fruitFSize)
   }
 
@@ -96,7 +111,7 @@ export default class FruitCreateComp extends React.Component {
             {this.state.fSizeInValid && <p className='input-err'> ** FSize Invalid</p>}
           </div>
           <div className='form-group'>
-            <button type='submit' className='btn btn-primary' onClick={this.sendFruitFormData}> Submit</button>
+            <button className='btn btn-primary' onClick={this.sendFruitFormData} type='submit' id='createFruitBtn'> Submit</button>
             <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
           </div> 
         </form>

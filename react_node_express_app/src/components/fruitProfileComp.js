@@ -121,7 +121,6 @@ export default class FruitProfileComp extends React.Component{
   }
 
   updateFruit = (event) => {
-    event.preventDefault()
     this.validateFormData() && this.editModeOff()
     this.validateFormData() && this.updateFruitApiCall()
   }
@@ -176,7 +175,7 @@ export default class FruitProfileComp extends React.Component{
                     <input type='text' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
                     {this.state.fSizeInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
 
-                    <button className='btn btn-primary' onClick={this.updateFruit} id='editFruitBtn' >Save</button>
+                    <button className='btn btn-primary' type='submit' onClick={this.updateFruit} id='editFruitBtn' >Save</button>
                     <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>
                 </form>
               </div>

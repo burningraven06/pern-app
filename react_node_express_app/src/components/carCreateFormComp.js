@@ -20,12 +20,41 @@ export default class CarCreateComp extends React.Component{
 
   }
   handleCarNameChange = (event) => {
+    if (!event.target.value){
+      this.setState({ nameInValid: true })
+      document.getElementById('carNameInput').classList.add('orange-boundary');
+      document.getElementById('createCarBtn').classList.add('disabled');
+    } else{
+      this.setState({ nameInValid: false })
+      document.getElementById('carNameInput').classList.remove('orange-boundary');
+      document.getElementById('createCarBtn').classList.remove('disabled');
+    }
     this.setState({ carname: event.target.value });
   }
+
   handleCarColorChange = (event) => {
+    if (!event.target.value) {
+      this.setState({ colorInValid: true })
+      document.getElementById('carColorInput').classList.add('orange-boundary');
+      document.getElementById('createCarBtn').classList.add('disabled');
+    } else {
+      this.setState({ colorInValid: false })
+      document.getElementById('carColorInput').classList.remove('orange-boundary');
+      document.getElementById('createCarBtn').classList.remove('disabled');
+    }
     this.setState({ carcolor: event.target.value });
   }
+
   handleCarPriceChange = (event) => {
+    if (!event.target.value) {
+      this.setState({ priceInValid: true })
+      document.getElementById('carPriceInput').classList.add('orange-boundary');
+      document.getElementById('createCarBtn').classList.add('disabled');
+    } else {
+      this.setState({ priceInValid: false })
+      document.getElementById('carPriceInput').classList.remove('orange-boundary');
+      document.getElementById('createCarBtn').classList.remove('disabled');
+    }
     this.setState({ carprice: event.target.value });
   }
 
@@ -35,31 +64,26 @@ export default class CarCreateComp extends React.Component{
     }
     if (!this.state.carname.length > 0){
       this.setState({ nameInValid: true})
-      document.getElementById('carNameInput').classList.add('orange-boundary');;
+      document.getElementById('carNameInput').classList.add('orange-boundary');
+      document.getElementById('createCarBtn').classList.add('disabled');
       return false;
     }
     if (!this.state.carcolor.length > 0) {
       this.setState({ colorInValid: true })
-      document.getElementById('carColorInput').classList.add('orange-boundary');;
+      document.getElementById('carColorInput').classList.add('orange-boundary');
+      document.getElementById('createCarBtn').classList.add('disabled');
       return false;
     } 
     if (!this.state.carprice) {
       this.setState({ priceInValid: true })
-      document.getElementById('carPriceInput').classList.add('orange-boundary');;
+      document.getElementById('carPriceInput').classList.add('orange-boundary');
+      document.getElementById('createCarBtn').classList.add('disabled');
       return false;
     }
   }
 
-  resetValidationCSS = () => {
-    this.setState({ nameInValid: false, colorInValid: false, priceInValid: false })
-    document.getElementById('carNameInput').classList.remove('orange-boundary');
-    document.getElementById('carColorInput').classList.remove('orange-boundary');
-    document.getElementById('carPriceInput').classList.remove('orange-boundary');
-  }
-
   sendCarFormData = (event) => {
     event.preventDefault()
-    this.resetValidationCSS()
     this.validateFormData() && this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
   }
   
@@ -87,7 +111,7 @@ export default class CarCreateComp extends React.Component{
             {this.state.priceInValid && <p className='input-err'> ** Price Invalid</p>}<br />
           </div>
           <div className="form-group">
-            <button type='submit' className='btn btn-primary' onClick={this.sendCarFormData}> Submit </button>
+            <button type='submit' className='btn btn-primary' onClick={this.sendCarFormData} id='createCarBtn'> Submit </button>
             <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
           </div>
         </form>
