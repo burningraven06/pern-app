@@ -1,58 +1,106 @@
 import React from 'react';
-export default class FruitCreateComp extends React.Component{
-   constructor(props){
-      super(props);
-      this.state = {
-         fruitName: "",
-         fruitColor: "",
-         fruitFSize: ""
+import './form-error.css';
 
-      }
-      this.handleFruitNameChange = this.handleFruitNameChange.bind(this);
-      this.handleFruitWeightChange = this.handleFruitWeightChange.bind(this);
-      this.handleFruitFSizeChange = this.handleFruitFSizeChange.bind(this);
-      this.unrenderCreateForm = this.unrenderCreateForm.bind(this);
-      this.sendFruitFormData = this.sendFruitFormData.bind(this);
-   }
+export default class FruitCreateComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fruitName: "",
+      fruitWeight: "",
+      fruitFSize: "",
+      nameInValid:false,
+      weightInValid: false,
+      fSizeInValid: false,
+    }
+    this.handleFruitNameChange = this.handleFruitNameChange.bind(this);
+    this.handleFruitWeightChange = this.handleFruitWeightChange.bind(this);
+    this.handleFruitFSizeChange = this.handleFruitFSizeChange.bind(this);
+    this.unrenderCreateForm = this.unrenderCreateForm.bind(this);
+    this.sendFruitFormData = this.sendFruitFormData.bind(this);
+  }
 
-   handleFruitNameChange = (event) => {
-      this.setState({
-         fruitName: event.target.value
-      })
-   }
+  handleFruitNameChange = (event) => {
+    this.setState({
+      fruitName: event.target.value
+    })
+  }
 
-   handleFruitWeightChange = (event) => {
-      this.setState({
-         fruitColor: event.target.value
-      })
-   }
+  handleFruitWeightChange = (event) => {
+    this.setState({
+      fruitWeight: event.target.value
+    })
+  }
 
-   handleFruitFSizeChange = (event) => {
-      this.setState({ 
-         fruitFSize: event.target.value
-      })
-   }
+  handleFruitFSizeChange = (event) => {
+    this.setState({
+      fruitFSize: event.target.value
+    })
+  }
 
-   sendFruitFormData = (event) => {
-      event.preventDefault()
-      this.props.receiveFormData( this.state.fruitName, this.state.fruitColor, this.state.fruitFSize)
-   }
+  validateFormData = () => {
+    if (this.state.fruitName.length > 0 && this.state.fruitWeight.length > 0 && this.state.fruitFSize){
+      return true;
+    }
+    if (!this.state.fruitName.length > 0){
+      this.setState({ nameInValid: true});
+      document.getElementById('fruitNameInput').classList.add('orange-boundary');
+      return false;
+    }
+    if (!this.state.fruitWeight.length > 0) {
+      this.setState({ weightInValid: true });
+      document.getElementById('fruitWeightInput').classList.add('orange-boundary');
+      return false;
+    }
+    if (!this.state.fruitFSize.length > 0) {
+      this.setState({ fSizeInValid: true });
+      document.getElementById('fruitFSizeInput').classList.add('orange-boundary');
+      return false;
+    }
+  }
+  
+  resetValidationCSS = () => {
+    this.setState({nameInValid: false,weightInValid: false,fSizeInValid: false})
+   
+    document.getElementById('fruitNameInput').classList.remove("orange-boundary");
+    document.getElementById('fruitWeightInput').classList.remove('orange-boundary');
+    document.getElementById('fruitFSizeInput').classList.remove('orange-boundary');
+  }
 
-   unrenderCreateForm = () => {
-      this.props.unrenderForm()
-   }
+  sendFruitFormData = (event) => {
+    event.preventDefault()
+    this.resetValidationCSS()
+    this.validateFormData() && this.props.receiveFormData(this.state.fruitName, this.state.fruitWeight, this.state.fruitFSize)
+  }
 
-   render(){
-      return (
-         <div className='col-sm-6 col-sm-offset-3'>
-            <form className='form'> 
-               <input type='text' placeholder='Name' className='form-control' onChange={this.handleFruitNameChange} name='fruitname' /> <br/>
-               <input type='text' placeholder='Weight' className='form-control' onChange={this.handleFruitWeightChange} name='fruitcolor' /> <br/>
-               <input type='text' placeholder='fSize' className='form-control' onChange={this.handleFruitFSizeChange} /> <br/>
-               <button type='submit' className='btn btn-primary' onClick={this.sendFruitFormData}> Submit</button>
-               <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
-            </form>
-         </div>
-      );
-   }
+  unrenderCreateForm = () => {
+    this.props.unrenderForm()
+  }
+
+  render() {
+    return (
+      <div className='col-sm-6 col-sm-offset-3'>
+        <form>
+          <div className='form-group'>
+            <label htmlFor='fruitname'> Name</label>
+            <input type='text' placeholder='Name' className='form-control' onChange={this.handleFruitNameChange} name='fruitname' id='fruitNameInput' /> 
+            {this.state.nameInValid && <p className='input-err'> ** Name Invalid</p>}
+          </div>
+          <div className='form-group'>
+            <label htmlFor='fruitWeight'> Weight</label>
+            <input type='text' placeholder='Weight' className='form-control' onChange={this.handleFruitWeightChange} name='fruitweight' id='fruitWeightInput'/> 
+            {this.state.weightInValid && <p className='input-err'> ** Weight Invalid</p>}
+          </div>
+          <div className='form-group'>
+            <label htmlFor='fruitFSize'> FSize</label>
+            <input type='text' placeholder='fSize' className='form-control' onChange={this.handleFruitFSizeChange} name='fruitFSize' id='fruitFSizeInput'/>
+            {this.state.fSizeInValid && <p className='input-err'> ** FSize Invalid</p>}
+          </div>
+          <div className='form-group'>
+            <button type='submit' className='btn btn-primary' onClick={this.sendFruitFormData}> Submit</button>
+            <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
+          </div> 
+        </form>
+      </div>
+    );
+  }
 }
