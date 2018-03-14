@@ -34,7 +34,7 @@ class CarsComp extends React.Component {
 
 	renderCarForm = () => {
 		this.setState({
-			showCars: false, carTitle: "Create New Car", showCarForm: true, showCarCreateBtn: false, showTitle: false, showSearch: false
+			showCars: false, carTitle: "Create New Car", showCarForm: true, showCarCreateBtn: false, showTitle: true, showSearch: false
 		})
 	}
 
@@ -44,7 +44,7 @@ class CarsComp extends React.Component {
 	} 
 
 	unrenderCarForm = () => {
-		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, showTitle: true, showSearch: false})
+		this.setState({ showCars: true, carTitle: "Cars", showCarForm: false, showCarCreateBtn: true, showTitle: true, showSearch: true})
 	}
 
 	createNewCarApiCall = (name, color, price) => {
