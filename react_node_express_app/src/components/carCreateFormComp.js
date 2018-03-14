@@ -1,60 +1,66 @@
 import React from 'react';
 
 export default class CarCreateComp extends React.Component{
-   constructor(props){
-      super(props);
-      this.state = {
-         carname: "",
-         carcolor: "",
-         carprice: "",
-         nameInValid: false,
-         colorInValid: false,
-         priceInValid: false
-      }
-      this.handleCarNameChange = this.handleCarNameChange.bind(this);
-      this.handleCarColorChange = this.handleCarColorChange.bind(this);
-      this.handleCarPriceChange = this.handleCarPriceChange.bind(this);
-      this.sendCarFormData = this.sendCarFormData.bind(this);
-      this.unrenderCreateForm = this.unrenderCreateForm.bind(this);
- 
-   }
-   handleCarNameChange = (event) => {
-      this.setState({ carname: event.target.value });
-   }
-   handleCarColorChange = (event) => {
-      this.setState({ carcolor: event.target.value });
-   }
-   handleCarPriceChange = (event) => {
-      this.setState({ carprice: event.target.value });
-   }
+  constructor(props){
+    super(props);
+    this.state = {
+        carname: "",
+        carcolor: "",
+        carprice: "",
+        nameInValid: false,
+        colorInValid: false,
+        priceInValid: false
+    }
+    this.handleCarNameChange = this.handleCarNameChange.bind(this);
+    this.handleCarColorChange = this.handleCarColorChange.bind(this);
+    this.handleCarPriceChange = this.handleCarPriceChange.bind(this);
+    this.sendCarFormData = this.sendCarFormData.bind(this);
+    this.unrenderCreateForm = this.unrenderCreateForm.bind(this);
 
-   sendCarFormData = (event) => {
-      event.preventDefault()
-      // console.log(this.state.carname, this.state.carcolor, this.state.carprice);
-      this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
-   }
-   
-   unrenderCreateForm = () => {
-      this.props.unrenderForm()
-   }
+  }
+  handleCarNameChange = (event) => {
+    this.setState({ carname: event.target.value });
+  }
+  handleCarColorChange = (event) => {
+    this.setState({ carcolor: event.target.value });
+  }
+  handleCarPriceChange = (event) => {
+    this.setState({ carprice: event.target.value });
+  }
 
-   render(){
-      return (
-         <div className='col-sm-6 col-sm-offset-3'> 
-            <form className='form'> 
-              <label htmlFor='carname'> Name</label>
-               <input type='text' placeholder='Name' name='carname' className='form-control' onChange={this.handleCarNameChange} id='carNameInput' /> <br/>
+  sendCarFormData = (event) => {
+    event.preventDefault()
+    // console.log(this.state.carname, this.state.carcolor, this.state.carprice);
+    this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
+  }
+  
+  unrenderCreateForm = () => {
+    this.props.unrenderForm()
+  }
 
-              <label htmlFor='carcolor'> Color</label> 
-               <input type='text' placeholder='Color' name='carcolor' className='form-control' onChange={this.handleCarColorChange} id='carColorInput' /> <br />
+  render(){
+    return (
+      <div className='col-sm-6 col-sm-offset-3'> 
+        <form className='form'> 
+          <label htmlFor='carname'> Name</label>
+          <input type='text' placeholder='Name' name='carname' className='form-control' onChange={this.handleCarNameChange} id='carNameInput' /> 
+          {this.state.nameInValid && <span className='input-err'> ** Name Invalid</span> }
+            <br/>
 
-              <label htmlFor='carprice'> Price</label>
-               <input type='text' placeholder='Price' name='carprice' className='form-control' onChange={this.handleCarPriceChange} id='carPriceInput' /> <br />
-               
-               <button type='submit' className='btn btn-primary' onClick={this.sendCarFormData}> Submit </button>
-               <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
-            </form>
-         </div>
-      );
-   }
+          <label htmlFor='carcolor'> Color</label> 
+          <input type='text' placeholder='Color' name='carcolor' className='form-control' onChange={this.handleCarColorChange} id='carColorInput' /> 
+          {this.state.colorInValid && <span className='input-err'> ** Color Invalid</span>}
+          <br />
+
+          <label htmlFor='carprice'> Price</label>
+          <input type='text' placeholder='Price' name='carprice' className='form-control' onChange={this.handleCarPriceChange} id='carPriceInput' /> 
+          {this.state.priceInValid && <span className='input-err'> ** Price Invalid</span>}<br />
+
+          <button type='submit' className='btn btn-primary' onClick={this.sendCarFormData}> Submit </button>
+          <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
+
+        </form>
+      </div>
+    );
+  }
 }
