@@ -114,11 +114,19 @@ class CarProfileComp extends React.Component{
     this.updateCarApiCall()
 	}
 
+	deleteCarApiCall = () => {
+		const deleteURL = '/api/cars/' + this.props.match.params.id
+		axios.delete(deleteURL).then( (res) => {
+			console.log(res);
+		}).catch(err => console.log(err))
+	}
+
 	redirectToCars = () => {
 		this.props.history.push('/cars')
 	}
 	
 	deleteCar = () => {
+		this.deleteCarApiCall()
 		this.redirectToCars()
 	}
 
