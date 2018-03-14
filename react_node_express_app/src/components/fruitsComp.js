@@ -2,7 +2,6 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import FruitCreateComp from './fruitCreateComp';
 import axios from 'axios';
-import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
 
 export default class FruitsComp extends React.Component {
 	constructor(props) {

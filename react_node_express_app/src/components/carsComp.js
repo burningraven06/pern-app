@@ -14,10 +14,11 @@ class CarsComp extends React.Component {
 			showSearch: false,
 			showCarForm: false,
 			showCarCreateBtn: true,
+			searchResults: [],
+			showSearchResults: false
 		}
 		this.renderCarForm = this.renderCarForm.bind(this)
 		this.receiveCarFormData = this.receiveCarFormData.bind(this)
-		this.unrenderCarForm = this.unrenderCarForm.bind(this)
 		this.searchCar = this.searchCar.bind(this)
 	}
 
@@ -40,7 +41,7 @@ class CarsComp extends React.Component {
 
 	receiveCarFormData = (newCN, newCC, newCP) => {
 		this.createNewCarApiCall(newCN, newCC, newCP);
-		this.hideCarForm()
+		this.unrenderCarForm()
 	} 
 
 	unrenderCarForm = () => {
