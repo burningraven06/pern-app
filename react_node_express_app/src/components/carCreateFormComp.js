@@ -28,10 +28,18 @@ export default class CarCreateComp extends React.Component{
     this.setState({ carprice: event.target.value });
   }
 
+  validateFormData = () => {
+    if (this.state.carname.length > 0 && this.state.carcolor.length> 0 && this.state.carprice){
+      return true; 
+    }
+    return false;
+  }
+
   sendCarFormData = (event) => {
     event.preventDefault()
+
     // console.log(this.state.carname, this.state.carcolor, this.state.carprice);
-    this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
+    this.validateFormData() && this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
   }
   
   unrenderCreateForm = () => {
