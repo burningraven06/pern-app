@@ -22,6 +22,7 @@ class CarProfileComp extends React.Component{
 		this.handleCarPriceChange = this.handleCarPriceChange.bind(this)
 		this.updateCar = this.updateCar.bind(this)
 		this.validateFormData = this.validateFormData.bind(this)
+		this.deleteCar = this.deleteCar.bind(this)
 	}
    
 	componentDidMount(){
@@ -111,7 +112,15 @@ class CarProfileComp extends React.Component{
     this.resetValidationCSS()
     this.validateFormData() && this.editModeOff()
     this.updateCarApiCall()
-  }
+	}
+
+	redirectToCars = () => {
+		this.props.history.push('/cars')
+	}
+	
+	deleteCar = () => {
+		this.redirectToCars()
+	}
 
   render(){
     return(
@@ -124,7 +133,7 @@ class CarProfileComp extends React.Component{
 					{! this.state.isEditing && 
 						<div>
 								<button className='btn btn-success' onClick={this.editModeOn}> Edit</button>
-								<button className='btn btn-danger'>Delete</button>
+								<button className='btn btn-danger' onClick={this.deleteCar} >Delete</button>
 						</div>
 					}
         </div>
