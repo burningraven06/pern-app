@@ -8,4 +8,11 @@ body {
   border-radius: 0;  
 }
 
+.pad-zero{
+  padding:0
+}
+.mb24{
+  margin-bottom: 24px;
+}
+
 

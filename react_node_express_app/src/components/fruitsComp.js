@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import FruitCreateComp from './fruitCreateComp';
 import axios from 'axios';
+import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
 
 export default class FruitsComp extends React.Component {
 	constructor(props) {
@@ -9,17 +10,21 @@ export default class FruitsComp extends React.Component {
 		this.state = {
 			allFruits: [],
 			showFruits: false,
+			showTitle: false,
+			showSearch: false,
 			fruitTitle: "Fruits",
 			showFruitForm: false,
-			showFruitCreateBtn: true
+			showFruitCreateBtn: true,
+			searchResults: [],
+			showResults: false
 		}
 		this.renderFruitForm = this.renderFruitForm.bind(this);
 		this.receiveFruitFormData = this.receiveFruitFormData;
-
+		this.searchFruit = this.searchFruit.bind(this);
 	}
 
 	componentDidMount() {
-		this.getAllFruitsApiCall().then(res => this.setState({ allFruits: res.backFruits, showFruits: true })).catch(err => console.log(err));
+		this.getAllFruitsApiCall().then(res => this.setState({ allFruits: res.backFruits, showFruits: true, showTitle: true , showSearch: true })).catch(err => console.log(err));
 	}  
 
 	getAllFruitsApiCall = async () => {
@@ -31,13 +36,13 @@ export default class FruitsComp extends React.Component {
 	
 	renderFruitForm = () => {
 		this.setState({
-			showFruits: false, showFruitForm: true, showFruitCreateBtn: false, fruitTitle: 'Create New Fruit'
+			showFruits: false, showFruitForm: true, showFruitCreateBtn: false, fruitTitle: 'Create New Fruit', showSearch: false
 		})
 	}
 
 	unrenderFruitForm = () => {
 		this.setState({
-			showFruits: true, showFruitForm: false, showFruitCreateBtn: true, fruitTitle: "Fruits"
+			showFruits: true, showFruitForm: false, showFruitCreateBtn: true, fruitTitle: "Fruits", showSearch: true
 		})
 	}
 
@@ -58,10 +63,43 @@ export default class FruitsComp extends React.Component {
 		}).catch( err => console.log(err))
 	}
 	
+	showResults = (searchQuery) => {
+		var searchRes = this.state.allFruits;
+		searchRes = searchRes.filter((fruit) => {
+			return fruit.name.toString().toLowerCase().search( searchQuery.toString().toLowerCase() ) !== -1;
+		});
+		this.setState({ showResults: true, searchResults: searchRes, showFruits: false, showFruitCreateBtn: false, showTitle: false})
+	}
+	
+	showNoResults = () => {
+		this.setState({ showResults: false, showFruits: true, showFruitCreateBtn:true, showTitle:true })
+	}
+
+	searchFruit = (event) => {	
+		event.target.value ? this.showResults(event.target.value) : this.showNoResults()		
+	}
+	
 	render() {
 		return (
 			<div className='col-md-10 col-md-offset-1'>
-				<h3 className={this.state.showFruitForm? 'text-center': ''}> {this.state.fruitTitle} </h3>
+				{this.state.showSearch && <div className='col-sm-12 pad-zero mb24'>
+					<div className='col-sm-4 pad-zero'>
+						<h3> Search</h3>
+						<form className='form'>
+							<input type='text' onChange={this.searchFruit} placeholder='Search' className='form-control' />
+						</form>
+						{this.state.showResults && (
+							<div style={{marginTop: '24px'}}>
+								<p> Search Results</p>
+								{this.state.searchResults.map((fruit) => (
+									<p> <NavLink to={'/fruit/' + fruit.id}> {fruit.name} </NavLink> </p>
+								))}
+							</div>
+						)}
+					</div>
+					</div>	}
+
+				{this.state.showTitle && <h3 className={this.state.showFruitForm? 'text-center': ''}> {this.state.fruitTitle} </h3> }
 				
 				{this.state.showFruitCreateBtn && <button className='btn btn-default' onClick={this.renderFruitForm}> Create</button>}
 
