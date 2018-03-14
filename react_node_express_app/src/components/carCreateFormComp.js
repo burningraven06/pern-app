@@ -50,9 +50,16 @@ export default class CarCreateComp extends React.Component{
     }
   }
 
+  resetValidationCSS = () => {
+    this.setState({ nameInValid: false, colorInValid: false, priceInValid: false })
+    document.getElementById('carPriceInput').className -= ' orange-boundary';
+    document.getElementById('carColorInput').className -= ' orange-boundary';
+    document.getElementById('carPriceInput').className -= ' orange-boundary';
+  }
+
   sendCarFormData = (event) => {
     event.preventDefault()
-    
+    this.resetValidationCSS()
     this.validateFormData() && this.props.receiveCarData(this.state.carname, this.state.carcolor, this.state.carprice);
   }
   
