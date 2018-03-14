@@ -6,7 +6,10 @@ export default class CarCreateComp extends React.Component{
       this.state = {
          carname: "",
          carcolor: "",
-         carprice: ""
+         carprice: "",
+         nameInValid: false,
+         colorInValid: false,
+         priceInValid: false
       }
       this.handleCarNameChange = this.handleCarNameChange.bind(this);
       this.handleCarColorChange = this.handleCarColorChange.bind(this);
@@ -23,7 +26,7 @@ export default class CarCreateComp extends React.Component{
    }
    handleCarPriceChange = (event) => {
       this.setState({ carprice: event.target.value });
-   } 
+   }
 
    sendCarFormData = (event) => {
       event.preventDefault()
@@ -39,9 +42,15 @@ export default class CarCreateComp extends React.Component{
       return (
          <div className='col-sm-6 col-sm-offset-3'> 
             <form className='form'> 
-               <input type='text' placeholder='Name' name='carname' className='form-control' onChange={this.handleCarNameChange} /> <br/>
-               <input type='text' placeholder='Color' name='carcolor' className='form-control' onChange={this.handleCarColorChange} /> <br />
-               <input type='text' placeholder='Price' name='carprice' className='form-control' onChange={this.handleCarPriceChange} /> <br />
+              <label htmlFor='carname'> Name</label>
+               <input type='text' placeholder='Name' name='carname' className='form-control' onChange={this.handleCarNameChange} id='carNameInput' /> <br/>
+
+              <label htmlFor='carcolor'> Color</label> 
+               <input type='text' placeholder='Color' name='carcolor' className='form-control' onChange={this.handleCarColorChange} id='carColorInput' /> <br />
+
+              <label htmlFor='carprice'> Price</label>
+               <input type='text' placeholder='Price' name='carprice' className='form-control' onChange={this.handleCarPriceChange} id='carPriceInput' /> <br />
+               
                <button type='submit' className='btn btn-primary' onClick={this.sendCarFormData}> Submit </button>
                <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
             </form>
