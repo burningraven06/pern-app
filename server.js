@@ -9,6 +9,8 @@ const fruitRouter = require('./backend/routes/fruitRoutes');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// app.use(express.static('./react_node_express_app/build/'));
+
 app.listen(port, () =>{
    console.log(`Express running on port: ${port}`);
 });
