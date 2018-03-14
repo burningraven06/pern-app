@@ -1,5 +1,6 @@
 .orange-boundary{
   border: 2px solid orange;
+  padding: 10px;
 }
 .input-err{
    color: red;
