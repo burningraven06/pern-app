@@ -49,7 +49,7 @@ class CarProfileComp extends React.Component{
 
   editModeOn = () => {
 		this.setState({ isEditing: true, editedCarName: this.state.theSingleCar.name,
-			editedCarColor: this.state.theSingleCar.color, editedCarPrice: this.state.theSingleCar.price, carUpdated: false})
+			editedCarColor: this.state.theSingleCar.color, editedCarPrice: this.state.theSingleCar.price, carUpdated: false, nameInValid: false, colorInValid: false,	priceInValid: false,})
   }
 
 	editModeOff = () => {
@@ -112,8 +112,8 @@ class CarProfileComp extends React.Component{
 
   updateCar = () => {
     this.resetValidationCSS()
-    this.validateFormData() && this.editModeOff()
-		this.updateCarApiCall()
+		this.validateFormData() && this.editModeOff()
+		this.validateFormData() && this.updateCarApiCall()
 		this.setState({ carUpdated: true})
 	}
 
