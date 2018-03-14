@@ -35,26 +35,26 @@ export default class CarCreateComp extends React.Component{
     }
     if (!this.state.carname.length > 0){
       this.setState({ nameInValid: true})
-      document.getElementById('carNameInput').className += ' form-control orange-boundary';
+      document.getElementById('carNameInput').classList.add('orange-boundary');;
       return false;
     }
     if (!this.state.carcolor.length > 0) {
       this.setState({ colorInValid: true })
-      document.getElementById('carColorInput').className += ' form-control orange-boundary';
+      document.getElementById('carColorInput').classList.add('orange-boundary');;
       return false;
     } 
     if (!this.state.carprice) {
       this.setState({ priceInValid: true })
-      document.getElementById('carPriceInput').className += ' form-control orange-boundary';
+      document.getElementById('carPriceInput').classList.add('orange-boundary');;
       return false;
     }
   }
 
   resetValidationCSS = () => {
     this.setState({ nameInValid: false, colorInValid: false, priceInValid: false })
-    document.getElementById('carNameInput').className -= 'orange-boundary';
-    document.getElementById('carColorInput').className -= 'orange-boundary';
-    document.getElementById('carPriceInput').className -= 'orange-boundary';
+    document.getElementById('carNameInput').classList.remove('orange-boundary');
+    document.getElementById('carColorInput').classList.remove('orange-boundary');
+    document.getElementById('carPriceInput').classList.remove('orange-boundary');
   }
 
   sendCarFormData = (event) => {

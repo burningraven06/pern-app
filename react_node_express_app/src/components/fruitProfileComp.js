@@ -76,26 +76,26 @@ export default class FruitProfileComp extends React.Component{
     }
     if (!this.state.editedFruitName.length > 0) {
       this.setState({ nameInValid: true });
-      document.getElementById('fruitNameInput').className += ' orange-boundary';
+      document.getElementById('fruitNameInput').classList.add('orange-boundary');
       return false;
     }
     if (!this.state.editedFruitWeight.length > 0) {
       this.setState({ weightInValid: true });
-      document.getElementById('fruitWeightInput').className += ' orange-boundary';
+      document.getElementById('fruitWeightInput').classList.add('orange-boundary');
       return false;
     }
     if (!this.state.editedFruitFSize) {
       this.setState({ fSizeInValid: true });
-      document.getElementById('fruitFSizeInput').className += ' orange-boundary';
+      document.getElementById('fruitFSizeInput').classList.add('orange-boundary');
       return false;
     }
   }
 
   resetValidationCSS = () => {
     this.setState({ nameInValid: false, weightInValid: false, fSizeInValid: false })
-    document.getElementById('fruitNameInput').className -= ' orange-boundary';
-    document.getElementById('fruitWeightInput').className -= ' orange-boundary';
-    document.getElementById('fruitFSizeInput').className -= ' orange-boundary';
+    document.getElementById('fruitNameInput').classList.remove('orange-boundary');
+    document.getElementById('fruitWeightInput').classList.remove('orange-boundary');
+    document.getElementById('fruitFSizeInput').classList.remove('orange-boundary');
   }
 
   updateFruitApiCall = () => {
