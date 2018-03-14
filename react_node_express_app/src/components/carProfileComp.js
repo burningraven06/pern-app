@@ -73,17 +73,17 @@ class CarProfileComp extends React.Component{
 			return true;
 		}
 		if (!this.state.editedCarName.length > 0) {
-				this.setState({ nameInValid: true })
+			this.setState({ nameInValid: true });
 			document.getElementById('carNameInput').className += ' orange-boundary';
 			return false;
 		}
 		if (!this.state.editedCarColor.length > 0) {
-				this.setState({ colorInValid: true });
+			this.setState({ colorInValid: true });
 			document.getElementById('carColorInput').className += ' orange-boundary';
 			return false;
 		}
 		if (!this.state.editedCarPrice) {
-				this.setState({ priceInValid: true });
+			this.setState({ priceInValid: true });
 			document.getElementById('carPriceInput').className += ' orange-boundary';
 			return false;
 		}

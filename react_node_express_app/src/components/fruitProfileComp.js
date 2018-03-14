@@ -13,7 +13,7 @@ export default class FruitProfileComp extends React.Component{
       editedFruitFSize: "",
       nameInValid: false,
       weightInValid: false,
-      fSzieInValid: false,
+      fSizeInValid: false,
     }
     this.editModeOn = this.editModeOn.bind(this)
     this.editModeOff = this.editModeOff.bind(this)
@@ -46,7 +46,14 @@ export default class FruitProfileComp extends React.Component{
   }
 
   editModeOn = () => {
-    this.setState({ isEditing: true, editedFruitName: this.state.theSingleFruit.name, editedFruitWeight: this.state.theSingleFruit.weight, editedFruitFSize: this.state.theSingleFruit.fsize })
+    this.setState({
+      isEditing: true,
+      editedFruitName: this.state.theSingleFruit.name, 
+      editedFruitWeight: this.state.theSingleFruit.weight, 
+      editedFruitFSize: this.state.theSingleFruit.fsize, 
+      nameInValid: false, 
+      weightInValid: false, 
+      fSizeInValid: false })
   }
 
   editModeOff = () => {
@@ -68,7 +75,7 @@ export default class FruitProfileComp extends React.Component{
 			return true;
     }
     if (!this.state.editedFruitName.length > 0) {
-      this.setState({ nameInValid: true })
+      this.setState({ nameInValid: true });
       document.getElementById('fruitNameInput').className += ' orange-boundary';
       return false;
     }
@@ -96,7 +103,7 @@ export default class FruitProfileComp extends React.Component{
     axios.patch(patchURL, {
       name: this.state.editedFruitName,
       weight: this.state.editedFruitWeight,
-      fsize: this.state.editedFruitFSize
+      fsize: parseInt(this.state.editedFruitFSize, 10)
     }).then( (res) => {
       console.log(res);
       this.callApiGetSingleFruit().then( (res) => this.setState({
@@ -105,10 +112,11 @@ export default class FruitProfileComp extends React.Component{
     }).catch(err => console.log(err))
   }
 
-  updateFruit = () => {
+  updateFruit = (event) => {
+    event.preventDefault()
     this.resetValidationCSS()
-    this.validateFormData && this.editModeOff()
-    this.updateFruitApiCall()
+    this.validateFormData() && this.editModeOff()
+    this.validateFormData() && this.updateFruitApiCall()
   }
 
   deleteFruitApiCall = () => {
@@ -159,7 +167,7 @@ export default class FruitProfileComp extends React.Component{
 
                     <label htmlFor='fruitFSize'> FSize </label>
                     <input type='text' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
-                    {this.state.fSzieInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
+                    {this.state.fSizeInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
 
                     <button className='btn btn-primary' onClick={this.updateFruit}>Save</button>
                     <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>

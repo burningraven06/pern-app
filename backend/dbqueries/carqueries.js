@@ -30,7 +30,7 @@ updateCar = (req, res, next) => {
 deleteCar = (req, res, next) =>{
    db.result('delete from cars where id=$1', parseInt(req.params.id)).then( (result) => {
       res.status(200).json({ message: `${result.rowCount} Car deleted from DB`})
-   }).catch( (err) => { next(err)})
+   }).catch( (err) => { next(err) })
 }
 
 
