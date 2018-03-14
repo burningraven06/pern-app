@@ -26,9 +26,16 @@ updateFruit = (req, res, next) => {
   }).catch( err => next (err))
 }
 
+deleteFriut = (req, res, next) => {
+  db.result('delete from fruits where id=$1', parseInt(req.params.id)).then( (result) => {
+    res.status(200).json({ message: `${result.rowCount} Car deleted from DB`})
+  }).catch( err => next(err));
+}
+
 module.exports = {
    getAllFruits: getAllFruits,
    getSingleFruit: getSingleFruit,
    createFruit: createFruit,
-   updateFruit: updateFruit
+   updateFruit: updateFruit,
+   deleteFriut: deleteFriut
 }

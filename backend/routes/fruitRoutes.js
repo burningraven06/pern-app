@@ -11,9 +11,7 @@ fruitRouter.get('/:id', fruitDBQueries.getSingleFruit);
 
 fruitRouter.patch('/:id', fruitDBQueries.updateFruit);
  
-fruitRouter.delete('/:id', (req, res) => {
-
-});
+fruitRouter.delete('/:id', fruitDBQueries.deleteFriut);
 
 module.exports = fruitRouter;
 
