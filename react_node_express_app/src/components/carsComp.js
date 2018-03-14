@@ -60,7 +60,11 @@ class CarsComp extends React.Component {
 	}
 
 	showResults = (searchQuery) => {
-		this.setState({ showSearchResults: true, showCars: false, showCarCreateBtn: false, showTitle: false })
+		var searchRes = this.state.allCars;
+		searchRes = searchRes.filter( (car) => {
+			return car.name.toString().toLowerCase().search( searchQuery.toString().toLowerCase() ) !== -1;
+		})
+		this.setState({ showSearchResults: true, showCars: false, showCarCreateBtn: false, showTitle: false, searchResults: searchRes })
 	}
 
 	showNoResults = () => {
@@ -80,7 +84,11 @@ class CarsComp extends React.Component {
 						<form className='form'> 
 							<input type='text' className='form-control' onChange={this.searchCar} placeholder='Search' />
 						</form>
-						{this.state.showSearchResults && <p> Search Results</p>}
+						{this.state.showSearchResults && <div style={{marginTop: "24px"}}>
+							{this.state.searchResults.map((car) => (
+								<p> <NavLink to={'/car/' + car.id}> {car.name} </NavLink>  </p>
+							))}
+						</div>}
 					</div>
 				</div>}
 
