@@ -1,0 +1,3 @@
+CREATE TABLE public.cars (id integer NOT NULL,name character varying,color character varying ,price integer,CONSTRAINT cars_pkey PRIMARY KEY (id)) WITH ( OIDS = FALSE) TABLESPACE pg_default;
+
+CREATE TABLE public.fruits(id integer NOT NULL, name character varying,weight character varying,fsize integer,CONSTRAINT fruits_pkey PRIMARY KEY (id)) WITH (OIDS = FALSE) TABLESPACE pg_default;
