@@ -8,6 +8,8 @@ import HomeComp from './components/homeComp';
 import CarsComp from './components/carsComp';
 import CarProfileComp from './components/carProfileComp';
 import FruitProfileComp from './components/fruitProfileComp';
+import LoginComp from './components/loginComp';
+import SignupComp from './components/signupComp';
 
 class App extends Component {
  
@@ -17,6 +19,9 @@ class App extends Component {
         <div className="App">
           {/* <h1> React App </h1> */}
           <NavbarComp />
+          <Route path={"/login"} component={LoginComp} />
+          <Route path={"/logout"} component={LoginComp} />
+          <Route path={"/signup"} component={SignupComp} />
           <Route exact path={"/"} component={HomeComp} />
           <Route path={"/cars/"} component={CarsComp} />
           <Route path={"/fruits"} component={FruitsComp} />

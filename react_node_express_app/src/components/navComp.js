@@ -20,6 +20,7 @@ const NavbarComp = () => {
                   <li> <NavLink to={"/cars"} activeStyle={{ color: "#222" }}> Cars </NavLink> </li>
                   <li> <NavLink to={"/fruits"} activeStyle={{ color: "#222" }}> Fruits </NavLink> </li>
                   <li> <NavLink to={"/about"} activeStyle={{ color: "darkgrey" }}> About</NavLink></li>
+                  <li> <NavLink to={"/signup"} activeStyle={{ color: "#222" }}> Fruits </NavLink> </li>
                   
                </ul>
             </div>
