@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {NavLink} from 'react-router-dom';
 
 export default class SignupComp extends React.Component{
   constructor(){
@@ -24,7 +25,8 @@ export default class SignupComp extends React.Component{
       takenEmailVal: false,
       searchResults: [],
       allRegEmails: [],
-      allRegUsernames: []
+      allRegUsernames: [],
+      regSuccess: false
     }
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePassChange = this.handlePassChange.bind(this)
@@ -102,7 +104,10 @@ export default class SignupComp extends React.Component{
         email: this.state.email,
         password: this.state.password
       }).then((res) => {
-        console.log(res);
+        if (res.data.regSucceess){
+          this.setState({ regSuccess: true })
+          this.emptyForm()
+        }
       }).catch(err => console.log(err))
     } 
     if (this.state.usernameBlank ){
@@ -119,6 +124,14 @@ export default class SignupComp extends React.Component{
     }
   }
 
+  emptyForm = () => {
+    document.getElementById('emailInput').value = ""
+    document.getElementById('usernameInput').value = ""
+    document.getElementById('passwordInput').value = ""
+    document.getElementById('passwordConfInput').value = ""
+    document.getElementById('passwordConfInput').value = ""
+  }
+
   render(){
     return(
       <div className='col-sm-4 col-sm-offset-4 mt32'> 
@@ -126,22 +139,30 @@ export default class SignupComp extends React.Component{
 
           {this.state.passwordsDontMatch && 
             <div className='alert alert-danger alert-dismissible' role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <p> <i className='fa fa-exclamation-triangle'> </i> Passwords Don't Match! </p>
             </div>
           }  
 
           {this.state.userNameTaken && 
             <div className='alert alert-danger alert-dismissible' role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <p> <i className='fa fa-exclamation-triangle'> </i> Username <strong> {this.state.takenUsernameVal} </strong> Already taken</p>
             </div>
           } 
 
           {this.state.emailTaken &&
             <div className='alert alert-danger alert-dismissible' role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <p> <i className='fa fa-exclamation-triangle'> </i> Email <strong> {this.state.takenEmailVal} </strong> Already taken</p>
+            </div>
+          }
+
+          {this.state.regSuccess &&
+            <div className='alert alert-success alert-dismissible' role="alert">
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <p> <i className='fa fa-check'> </i> Registration Successful </p>
+              <p> Please <NavLink to='/login'>Login</NavLink> with your credentials</p>
             </div>
           }    
 

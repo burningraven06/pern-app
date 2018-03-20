@@ -121,7 +121,7 @@ export default class FruitProfileComp extends React.Component{
   deleteFruitApiCall = () => {
     if (this.state.isLoggedIn) {
       const deleteURL = '/api/fruits/' + this.props.match.params.id
-      axios.delete(deleteURL).then( (res) => console.log(res.message)).catch(err => console.log(err));
+      axios.delete(deleteURL).then((res) => console.log(res.msg)).catch(err => console.log(err));
     }
   }
 

@@ -7,8 +7,8 @@ userRouter.post('/new', (req, res) => {
     username: req.body.username, email: req.body.email, password: req.body.password
   }).then(user => {
     req.session.user = user.dataValues;
-    res.status(200).send({ inSession: true, loggedUser: user })
-  }).catch(err => res.status(401).send({ inSession: false, errMsg: err }))
+    res.status(200).send({ regSucceess: true })
+    }).catch(err => res.status(401).send({ regSucceess: false, errMsg: err }))
 })
 
 userRouter.post('/login', (req, res) => {

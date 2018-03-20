@@ -101,12 +101,11 @@ class CarProfileComp extends React.Component{
 				name: this.state.editedCarName,
 				color: this.state.editedCarColor,
 				price: parseInt(this.state.editedCarPrice, 10)
-			}).then((res) => {
-				console.log(res);
+			}).then((res) => (
 				this.callApiGetSingleCar().then(res => this.setState({
 					theSingleCar: res.singleCar,
 				})).catch(err => console.log(err))
-			}).catch(err => console.log(err))
+			)).catch(err => console.log(err))
 		}
 	}
 
@@ -120,7 +119,7 @@ class CarProfileComp extends React.Component{
 		if (this.state.isLoggedIn) {
 			const deleteURL = '/api/cars/' + this.props.match.params.id
 			axios.delete(deleteURL).then( (res) => {
-				console.log(res);
+				console.log(res.msg);
 			}).catch(err => console.log(err))
 		}
 	}
