@@ -4,7 +4,7 @@ var pgpool = require('pg-promise')({
 });
 
 // var connectionStr = "postgres://postgres:postgres@localhost:5432/carfruitdb";
-var connectionStr = "postgres://ccvoombfeqheyi:74af532634ed52900af793bd6c6f3537d63b1289d86f92a8ee50ad11acc10cbb@ec2-54-163-246-193.compute-1.amazonaws.com:5432/d7egfmaeq2bj48";
+var connectionStr = "postgres://areiswihugxmga:ed6d5bda5b8616376d60b66cb4ee037765f92a9593882b81d4d56d8539d7c4d1@ec2-174-129-225-9.compute-1.amazonaws.com:5432/d9hou6nr599di";
 
 var db = pgpool(connectionStr);
 
