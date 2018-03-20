@@ -1,5 +1,5 @@
 var express = require('express');
-var db = require('../dbconn/connection');
+var db = require('../dbconn_old/connection');
 
 getAllFruits = (req, res, next) => {
    db.any("select * from fruits").then((data) => {
