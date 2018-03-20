@@ -1,11 +1,7 @@
 var express = require('express');
 var db = require('../dbconn/connection');
 
-getAllCars = (req, res, next) =>{
-   db.any('select * from cars').then( (data) => {
-      res.status(200).send({ backCars: data, message: "Cars retrieved from DB" })
-   }).catch((err) => { next(err) })
-}
+getAllCars = 
 
 getSingleCar = (req, res, next) =>{
    var carID = req.params.id;

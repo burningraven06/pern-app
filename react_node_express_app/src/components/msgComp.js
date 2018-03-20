@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class MessageComp extends React.Component{
    constructor(){
@@ -9,20 +10,18 @@ export default class MessageComp extends React.Component{
 	}
 
 	componentDidMount(){
-		this.callApiMsg().then(res => this.setState({ myMsg: res.backMsg })).catch(err => console.log(err));
+		this.callApiMsg()
 	}
 
-	callApiMsg = async () => {
-		const response = await fetch('/api/hello');
-		const body = await response.json();
-		if (response.status !== 200) throw Error(body.message);
-		return body;
-	};
+	callApiMsg = () => {
+		axios.get('/api/hello').then(res => {
+			this.setState({ myMsg: res.data.backMsg}) 
+		}).catch(err => console.log(err));
+	}
 	
 	render(){
-	
-     	return (
-       	<div>
+    return (
+     	<div>
 				<h4 className='text-center'> Hey {this.state.myMsg} & React App works too</h4>
 			</div>
      	);	

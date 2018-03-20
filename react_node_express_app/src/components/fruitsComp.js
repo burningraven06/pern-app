@@ -15,7 +15,9 @@ export default class FruitsComp extends React.Component {
 			showFruitForm: false,
 			showFruitCreateBtn: true,
 			searchResults: [],
-			showSearchResults: false
+			showSearchResults: false,
+			isLoggedIn: this.props.isLoggedIn,
+			loginMsg: ""
 		}
 		this.renderFruitForm = this.renderFruitForm.bind(this);
 		this.receiveFruitFormData = this.receiveFruitFormData;
@@ -23,14 +25,13 @@ export default class FruitsComp extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getAllFruitsApiCall().then(res => this.setState({ allFruits: res.backFruits, showFruits: true, showTitle: true , showSearch: true })).catch(err => console.log(err));
+		this.state.isLoggedIn ? this.getAllFruitsApiCall() : this.setState({ loginMsg: "Please sign in" })
 	}  
 
-	getAllFruitsApiCall = async () => {
-		const response = await fetch('/api/fruits');
-		const resBody = await response.json();
-		if (response.status !== 200) throw Error(resBody.message);
-		return resBody;
+	getAllFruitsApiCall = () => {
+		axios.get('/api/fruits').then(res => {
+			this.setState({ allFruits: res.data.backFruits, showFruits: true, showTitle: true, showSearch: true })
+		}).catch(err => console.log(err));
 	}
 	
 	renderFruitForm = () => {
@@ -51,15 +52,15 @@ export default class FruitsComp extends React.Component {
 	}
 
 	createNewFruitApiCall = (name, weight, fsize) => {
-		axios.post('/api/fruits', {
-			name: name,
-			weight: weight,
-			fsize: parseInt(fsize, 10)
-		}).then( (res) => {
-			console.log(res);
-			this.getAllFruitsApiCall().then(res => this.setState({ allFruits: res.backFruits, showFruits: true })).catch(err => console.log(err));
-
-		}).catch( err => console.log(err))
+		if (this.state.isLoggedIn){
+			axios.post('/api/fruits', {
+				name: name,
+				weight: weight,
+				fsize: parseInt(fsize, 10)
+			}).then( (res) => {
+				this.getAllFruitsApiCall();
+			}).catch( err => console.log(err))
+		}
 	}
 	
 	showResults = (searchQuery) => {
@@ -81,44 +82,53 @@ export default class FruitsComp extends React.Component {
 	render() {
 		return (
 			<div className='col-md-10 col-md-offset-1'>
-				{this.state.showSearch && <div className='col-sm-12 pad-zero mb24'>
-					<div className='col-sm-4 pad-zero'>
-						<h3> Search</h3>
-						<form className='form'>
-							<input type='text' onChange={this.searchFruit} placeholder='Search' className='form-control' />
-						</form>
-						{this.state.showSearchResults && (
-							<div style={{marginTop: '24px'}}>
-								<p> Search Results</p>
-								{this.state.searchResults.map((fruit) => (
-									<p> <NavLink to={'/fruit/' + fruit.id}> {fruit.name} </NavLink> </p>
-								))}
-							</div>
-						)}
+				{!this.state.isLoggedIn && 
+					<div className='col-sm-6 col-sm-offset-3 mt32'> 
+						{this.state.loginMsg} <h3> <NavLink to={'/login/'}> Login </NavLink> </h3> 
 					</div>
-					</div>	}
+				}
 
-				{this.state.showTitle && <h3 className={this.state.showFruitForm? 'text-center': ''}> {this.state.fruitTitle} </h3> }
+				{this.state.isLoggedIn && this.state.showSearch && 
+					<div className='col-sm-12 pad-zero mb24'>
+						<div className='col-sm-4 pad-zero'>
+							<h3> Search</h3>
+							<form className='form'>
+								<input type='text' onChange={this.searchFruit} placeholder='Search' className='form-control' />
+							</form>
+
+							{this.state.showSearchResults && (
+								<div style={{marginTop: '24px'}}>
+									<p> Search Results</p>
+									{this.state.searchResults.map((fruit) => (
+										<p> <NavLink to={'/fruit/' + fruit.id}> {fruit.name} </NavLink> </p>
+									))}
+								</div>
+							)}
+						</div>
+					</div>	
+				}
+
+				{this.state.isLoggedIn && this.state.showTitle && <h3 className={this.state.showFruitForm? 'text-center': ''}> {this.state.fruitTitle} </h3> }
 				
-				{this.state.showFruitCreateBtn && <button className='btn btn-default' onClick={this.renderFruitForm}> Create</button>}
+				{this.state.isLoggedIn && this.state.showFruitCreateBtn && <button className='btn btn-default' onClick={this.renderFruitForm}> Create</button>}
 
-				{this.state.showFruitForm && <FruitCreateComp unrenderForm={this.unrenderFruitForm} receiveFormData={this.receiveFruitFormData} />}
+				{this.state.isLoggedIn && this.state.showFruitForm && <FruitCreateComp unrenderForm={this.unrenderFruitForm} receiveFormData={this.receiveFruitFormData} />}
 
-				{this.state.showFruits && (
-				<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
-					{
-						this.state.allFruits.map((fruit) => (
-							<div className='col-md-3 col-sm-3 col-xs-6' key={fruit.id} style={{padding: 0}}>
-								<h4 style={{ fontSize: fruit.fSize }}>
-									<NavLink to={"/fruit/" + fruit.id}> {fruit.name} </NavLink> </h4>
-								<p>
-									<i className='fa fa-scale'> </i> {fruit.weight}
-								</p>
-							</div>
-						))
-					}
-				</div>
-				)}
+				{this.state.isLoggedIn && this.state.showFruits && 
+					<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
+						{
+							this.state.allFruits.map((fruit) => (
+								<div className='col-md-3 col-sm-3 col-xs-6' key={fruit.id} style={{padding: 0}}>
+									<h4 style={{ fontSize: fruit.fSize }}>
+										<NavLink to={"/fruit/" + fruit.id}> {fruit.name} </NavLink> </h4>
+									<p>
+										<i className='fa fa-scale'> </i> {fruit.weight}
+									</p>
+								</div>
+							))
+						}
+					</div>
+				}
 			</div>
 		)
 	}

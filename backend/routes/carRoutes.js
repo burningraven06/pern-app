@@ -1,17 +1,53 @@
 var express = require ('express');
-// const sampleCarArray = require('../data/cars');
+const Car = require('../models/car');
 
 var carRouter = express.Router();
-var carDBQueries = require('../dbqueries/carqueries');
 
-carRouter.get('/', carDBQueries.getAllCars);
+carRouter.get('/', (req, res, next) => {
+  Car.findAll().then( (data) => {
+    res.status(200).send({ backCars: data, msg: "Cars retrieved" })
+  }).catch( err => next(err))
+  
+});
 
-carRouter.post('/', carDBQueries.createCar);
+carRouter.post('/', (req, res, next) => {
+  Car.create({
+    name: req.body.name, color: req.body.color, price: parseInt(req.body.price)
+  }).then( car => {
+    res.status(200).send({ msg: "Car Created"})
+  }).catch(err => next(err))
+});
 
-carRouter.get('/:id',carDBQueries.getSingleCar);
+carRouter.get('/:id', (req, res, next) =>{
+  Car.findOne({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  }).then(car => {
+    car? res.status(200).send({ singleCar: car}) : res.status(200).send({ errMsg: "Car Doesn't Exist"})
+  }).catch(err => next(err));
+});
 
-carRouter.patch('/:id', carDBQueries.updateCar);
+carRouter.patch('/:id', (req, res, next) => {
+  Car.update({
+    name: req.body.name, color: req.body.color, price: parseInt(req.body.price)
+    },
+    {
+    where: {
+      id: parseInt(req.params.id)
+    }
+  }).then( (car) => {
+    car ? res.status(200).send({ msg: "Car Updated" }) : res.status(200).send({ errMsg: "Car Doesn't Exist", badID: true}) }).catch(err => next(err))
+});
 
-carRouter.delete('/:id', carDBQueries.deleteCar);
+carRouter.delete('/:id', (req, res, next) => {
+  Car.destroy({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  }).then( result => {
+    result ? res.status(200).send({ msg: "Car Deleted" }) : res.status(200).send({ errMsg: "Car Doesn't Exist", badID: true})
+  }).catch( err => next(err))
+});
 
 module.exports = carRouter;

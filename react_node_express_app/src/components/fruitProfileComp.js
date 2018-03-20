@@ -1,6 +1,7 @@
 import React from 'react';
 import './form-error.css';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 export default class FruitProfileComp extends React.Component{
   constructor(props){
@@ -14,6 +15,8 @@ export default class FruitProfileComp extends React.Component{
       nameInValid: false,
       weightInValid: false,
       fSizeInValid: false,
+      isLoggedIn: this.props.isLoggedIn,
+      loginMsg: ""
     }
     this.editModeOn = this.editModeOn.bind(this)
     this.editModeOff = this.editModeOff.bind(this)
@@ -26,23 +29,14 @@ export default class FruitProfileComp extends React.Component{
   }
 
   componentDidMount(){
-    this.callApiGetSingleFruit().then( res => { 
-      this.setState({ theSingleFruit: res.singleFruit })
-    }).catch(err => console.log(err))
+    this.state.isLoggedIn ? this.callApiGetSingleFruit() : this.setState({ loginMsg: "Please sign in first" }) 
   } 
 
-  componentDidUpdate(){
-    this.callApiGetSingleFruit().then( res => {
-      this.setState({ theSingleFruit: res.singleFruit })
-    }).catch(err => console.log(err))
-  } 
-
-  callApiGetSingleFruit = async() =>{
+  callApiGetSingleFruit = async() => {
     const fetchURL = '/api/fruits/' + this.props.match.params.id
-    const response = await fetch(fetchURL);
-    const resBody = await response.json();
-    if (response.status !== 200) throw Error(resBody.message);
-    return resBody;
+    axios.get(fetchURL).then(res => {
+      this.setState({ theSingleFruit: res.data.singleFruit })
+    }).catch(err => console.log(err))
   }
 
   editModeOn = () => {
@@ -107,17 +101,16 @@ export default class FruitProfileComp extends React.Component{
   }
 
   updateFruitApiCall = () => {
-    const patchURL = '/api/fruits/' + this.props.match.params.id
-    axios.patch(patchURL, {
-      name: this.state.editedFruitName,
-      weight: this.state.editedFruitWeight,
-      fsize: parseInt(this.state.editedFruitFSize, 10)
-    }).then( (res) => {
-      console.log(res);
-      this.callApiGetSingleFruit().then( (res) => this.setState({
-        theSingleFruit: res.singleFruit
-      })).catch( err => console.log(err))
-    }).catch(err => console.log(err))
+    if (this.state.isLoggedIn){
+      const patchURL = '/api/fruits/' + this.props.match.params.id
+      axios.patch(patchURL, {
+        name: this.state.editedFruitName,
+        weight: this.state.editedFruitWeight,
+        fsize: parseInt(this.state.editedFruitFSize, 10)
+      }).then( (res) => {
+        this.callApiGetSingleFruit()
+      }).catch(err => console.log(err))
+    }
   }
 
   updateFruit = (event) => {
@@ -126,8 +119,10 @@ export default class FruitProfileComp extends React.Component{
   }
 
   deleteFruitApiCall = () => {
-    const deleteURL = '/api/fruits/' + this.props.match.params.id
-    axios.delete(deleteURL).then( (res) => console.log(res.message)).catch(err => console.log(err));
+    if (this.state.isLoggedIn) {
+      const deleteURL = '/api/fruits/' + this.props.match.params.id
+      axios.delete(deleteURL).then( (res) => console.log(res.message)).catch(err => console.log(err));
+    }
   }
 
   redirectToFruits = () => {
@@ -142,7 +137,14 @@ export default class FruitProfileComp extends React.Component{
   render(){
     return(
       <div className='col-md-10 col-md-offset-1'>
-        <div className='col-sm-4'>
+        {!this.state.isLoggedIn && 
+          <div className='col-sm-6 col-sm-offset-3 mt32'> 
+            {this.state.loginMsg} <h3> <NavLink to={'/login/'}> Login </NavLink> </h3> 
+          </div>
+        }
+
+        {this.state.isLoggedIn && 
+          <div className='col-sm-4'>
             <h2> {this.state.theSingleFruit.name} </h2>
             <p> Weight: <i className='fa fa-paint-scale'> </i> {this.state.theSingleFruit.weight} </p>
             <p> fSize: {this.state.theSingleFruit.fsize} px </p>
@@ -152,36 +154,49 @@ export default class FruitProfileComp extends React.Component{
                   <button className='btn btn-danger' onClick={this.deleteFruit}> Delete </button>
               </div>
             }
-        </div>
-        <div className='col-sm-8'>
-          {this.state.isEditing && 
-            <div>
-              <div className='col-sm-6'>
-                <h3> {this.state.editedFruitName} </h3>
-                <p> {this.state.editedFruitWeight} {this.state.editedFruitFSize}</p>   
+          </div>
+        }
+
+        {this.state.isLoggedIn && 
+          <div className='col-sm-8'>
+            {this.state.isEditing && 
+              <div>
+                <div className='col-sm-6'>
+                  <h3> {this.state.editedFruitName} </h3>
+                  <p> {this.state.editedFruitWeight} {this.state.editedFruitFSize}</p>   
+                </div>
+
+                <div className='col-sm-6'>
+                  <h3> Edit Car </h3>
+                  <form className='form'>
+                    <div className='form-group'>
+                      <label htmlFor='fruitName'> Name </label>
+                      <input type='text' className='form-control' name='fruitName' defaultValue={this.state.editedFruitName} onChange={this.handleFruitNameChange} id='fruitNameInput' /> 
+                      { this.state.nameInValid && <span className='input-err'> ** Name Invalid</span>} <br/>
+                    </div>
+
+                    <div className='form-group'>
+                      <label htmlFor='fruitWeight'> Weight </label>
+                      <input type='text' className='form-control' name='fruitWeight' onChange={this.handleFruitWeightChange} defaultValue={this.state.editedFruitWeight} id='fruitWeightInput' /> 
+                      {this.state.weightInValid && <span className='input-err'> ** Weight Invalid</span>} <br />
+                    </div>
+
+                    <div className='form-group'>
+                      <label htmlFor='fruitFSize'> FSize </label>
+                      <input type='number' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
+                      {this.state.fSizeInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
+                    </div>
+
+                    <div className='form-group'>
+                      <button className='btn btn-primary' type='submit' onClick={this.updateFruit} id='editFruitBtn' >Save</button>
+                      <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-              <div className='col-sm-6'>
-                <h3> Edit Car </h3>
-                <form className='form'>
-                    <label htmlFor='fruitName'> Name </label>
-                    <input type='text' className='form-control' name='fruitName' defaultValue={this.state.editedFruitName} onChange={this.handleFruitNameChange} id='fruitNameInput' /> 
-                    { this.state.nameInValid && <span className='input-err'> ** Name Invalid</span>} <br/>
-
-                    <label htmlFor='fruitWeight'> Weight </label>
-                    <input type='text' className='form-control' name='fruitWeight' onChange={this.handleFruitWeightChange} defaultValue={this.state.editedFruitWeight} id='fruitWeightInput' /> 
-                    {this.state.weightInValid && <span className='input-err'> ** Weight Invalid</span>} <br />
-
-                    <label htmlFor='fruitFSize'> FSize </label>
-                    <input type='text' className='form-control' name='fruitFSzie' onChange={this.handleFruitFSizeChange} defaultValue={this.state.editedFruitFSize} id='fruitFSizeInput' />
-                    {this.state.fSizeInValid && <span className='input-err'> ** FSize Invalid</span>} <br />
-
-                    <button className='btn btn-primary' type='submit' onClick={this.updateFruit} id='editFruitBtn' >Save</button>
-                    <button className='btn btn-default' onClick={this.editModeOff}>Cancel </button>
-                </form>
-              </div>
-            </div>
-          }
-        </div>
+            }
+          </div>
+        }
       </div>
     )
   }

@@ -11,6 +11,9 @@ body {
 .pad-zero{
   padding:0
 }
+.mt32{
+  margin-top: 32px;
+}
 .mb24{
   margin-bottom: 24px;
 }

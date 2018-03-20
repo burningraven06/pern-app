@@ -97,25 +97,28 @@ export default class FruitCreateComp extends React.Component {
         <form>
           <div className='form-group'>
             <label htmlFor='fruitname'> Name</label>
-            <input type='text' placeholder='Name' className='form-control' onChange={this.handleFruitNameChange} name='fruitname' id='fruitNameInput' /> 
+            <input type='text' placeholder='Mango ... ' className='form-control' onChange={this.handleFruitNameChange} name='fruitname' id='fruitNameInput' /> 
             {this.state.nameInValid && <p className='input-err'> ** Name Invalid</p>}
           </div>
+
           <div className='form-group'>
             <label htmlFor='fruitWeight'> Weight</label>
-            <input type='text' placeholder='Weight' className='form-control' onChange={this.handleFruitWeightChange} name='fruitweight' id='fruitWeightInput'/> 
+            <input type='text' placeholder='240 pounds ... ' className='form-control' onChange={this.handleFruitWeightChange} name='fruitweight' id='fruitWeightInput'/> 
             {this.state.weightInValid && <p className='input-err'> ** Weight Invalid</p>}
           </div>
+
           <div className='form-group'>
             <label htmlFor='fruitFSize'> FSize</label>
-            <input type='text' placeholder='fSize' className='form-control' onChange={this.handleFruitFSizeChange} name='fruitFSize' id='fruitFSizeInput'/>
+            <input type='number' placeholder='15 ...' className='form-control' onChange={this.handleFruitFSizeChange} name='fruitFSize' id='fruitFSizeInput'/>
             {this.state.fSizeInValid && <p className='input-err'> ** FSize Invalid</p>}
           </div>
+
           <div className='form-group'>
             <button className='btn btn-primary' onClick={this.sendFruitFormData} type='submit' id='createFruitBtn'> Submit</button>
             <button type='cancel' className='btn btn-default' onClick={this.unrenderCreateForm}> Cancel </button>
           </div> 
         </form>
       </div>
-    );
+    )
   }
 }
