@@ -25,7 +25,7 @@ app.use(session({
   }
 }));
 
-// app.use(express.static('./react_node_express_app/build/' || './react_node_express_app/public/'));
+app.use(express.static('./react_node_express_app/build/' || './react_node_express_app/public/'));
 
 app.listen(port, () =>{
    console.log(`Express running on port: ${port}`);
