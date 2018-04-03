@@ -22,7 +22,7 @@ export default class MessageComp extends React.Component{
 	render(){
     return (
      	<div className='col-sm-10 col-sm-offset-1'>
-				<h4 className='text-center'> Hey {this.state.myMsg} & React App works too</h4>
+				<h4> Hey {this.state.myMsg} & React App works too</h4>
 			</div>
      	);	
   	}

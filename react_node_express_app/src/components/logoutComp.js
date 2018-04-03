@@ -21,7 +21,7 @@ export default class LogoutComp extends React.Component {
 
   render(){
     return(
-      <div className='col-sm-4 col-sm-offset-4 mt32'>
+      <div className='col-sm-4 col-sm-offset-1 mt32'>
         {this.state.isUserLogged && <p> Logout Successful</p>}
         {!this.state.isUserLogged && <p> {this.state.errMsg} </p>}
       </div>

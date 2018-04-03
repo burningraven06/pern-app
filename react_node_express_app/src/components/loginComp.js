@@ -49,7 +49,7 @@ export default class LoginComp extends React.Component{
 
   render(){
     return(
-      <div className='col-sm-4 col-sm-offset-4 mt32'> 
+      <div className='col-sm-4 col-sm-offset-1 mt32'> 
         {this.state.userLoggedIn && <p> Welcome {this.state.loggedUserName} </p>}
         {!this.state.userLoggedIn && <form> 
           
@@ -57,6 +57,8 @@ export default class LoginComp extends React.Component{
             <p> <i className='fa fa-exclamation-triangle'> </i> <strong> {this.state.loginError} </strong> </p>
           </div>
           }
+
+	        <h3 className='mb24'> Login </h3>
 
           <div className="form-group">
             <label htmlFor='username'> Username</label>

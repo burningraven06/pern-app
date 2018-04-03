@@ -11,6 +11,9 @@ body {
 .pad-zero{
   padding:0
 }
+.mt16{
+  margin-top:16px;
+}
 .mt32{
   margin-top: 32px;
 }
@@ -26,5 +29,6 @@ body {
   font-size: 16px;
   height: 42px;
 }
-
-
+.inline{
+  display:inline;
+}

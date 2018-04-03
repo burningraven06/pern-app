@@ -134,66 +134,70 @@ export default class SignupComp extends React.Component{
 
   render(){
     return(
-      <div className='col-sm-4 col-sm-offset-4 mt32'> 
-        <form>
+      <div>
+        <div className='col-sm-4 col-sm-offset-1 mt32'> 
+          <form>
 
-          {this.state.passwordsDontMatch && 
-            <div className='alert alert-danger alert-dismissible' role="alert">
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <p> <i className='fa fa-exclamation-triangle'> </i> Passwords Don't Match! </p>
+            {this.state.passwordsDontMatch && 
+              <div className='alert alert-danger alert-dismissible' role="alert">
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p> <i className='fa fa-exclamation-triangle'> </i> Passwords Don't Match! </p>
+              </div>
+            }  
+
+            {this.state.userNameTaken && 
+              <div className='alert alert-danger alert-dismissible' role="alert">
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p> <i className='fa fa-exclamation-triangle'> </i> Username <strong> {this.state.takenUsernameVal} </strong> Already taken</p>
+              </div>
+            } 
+
+            {this.state.emailTaken &&
+              <div className='alert alert-danger alert-dismissible' role="alert">
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p> <i className='fa fa-exclamation-triangle'> </i> Email <strong> {this.state.takenEmailVal} </strong> Already taken</p>
+              </div>
+            }
+
+            {this.state.regSuccess &&
+              <div className='alert alert-success alert-dismissible' role="alert">
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p> <i className='fa fa-check'> </i> Registration Successful </p>
+                <p> Please <NavLink to='/login'>Login</NavLink> with your credentials</p>
+              </div>
+            }    
+
+            <h3 className='mb24'> Sign Up </h3>
+            <div className="form-group">
+              <label htmlFor='username'> Username</label>
+              <input type='text' placeholder='Username' name='username' className={'form-control'} onChange={this.handleUserNameChange} id='usernameInput' />
+              {this.state.usernameInvalid && <p className='input-err'> ** UserName Required</p>}
             </div>
-          }  
 
-          {this.state.userNameTaken && 
-            <div className='alert alert-danger alert-dismissible' role="alert">
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <p> <i className='fa fa-exclamation-triangle'> </i> Username <strong> {this.state.takenUsernameVal} </strong> Already taken</p>
+            <div className="form-group">
+              <label htmlFor='username'> Email</label>
+              <input type='text' placeholder='Email' name='email' className={'form-control'} onChange={this.handleEmailChange} id='emailInput' />
+              {this.state.emailInvalid && <p className='input-err'> ** Email Required</p>}
             </div>
-          } 
 
-          {this.state.emailTaken &&
-            <div className='alert alert-danger alert-dismissible' role="alert">
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <p> <i className='fa fa-exclamation-triangle'> </i> Email <strong> {this.state.takenEmailVal} </strong> Already taken</p>
+            <div className="form-group">
+              <label htmlFor='password'> Password</label>
+              <input type='password' placeholder='****' name='password' className={'form-control'} onChange={this.handlePassChange} id='passwordInput' />
+              {this.state.passwordInValid && <p className='input-err'> ** Password Required</p>}
             </div>
-          }
 
-          {this.state.regSuccess &&
-            <div className='alert alert-success alert-dismissible' role="alert">
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <p> <i className='fa fa-check'> </i> Registration Successful </p>
-              <p> Please <NavLink to='/login'>Login</NavLink> with your credentials</p>
+            <div className="form-group">
+              <label htmlFor='passwordconf'> Confirm</label>
+              <input type='password' placeholder='****' name='passwordconf' className={'form-control'} onChange={this.handlePassConfChange} id='passwordConfInput' />
+              {this.state.passwordConfInValid && <p className='input-err'> ** Pass Confirmation Required</p>}
             </div>
-          }    
 
-          <div className="form-group">
-            <label htmlFor='username'> Username</label>
-            <input type='text' placeholder='Username' name='username' className={'form-control'} onChange={this.handleUserNameChange} id='usernameInput' />
-            {this.state.usernameInvalid && <p className='input-err'> ** UserName Required</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor='username'> Email</label>
-            <input type='text' placeholder='Email' name='email' className={'form-control'} onChange={this.handleEmailChange} id='emailInput' />
-            {this.state.emailInvalid && <p className='input-err'> ** Email Required</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor='password'> Password</label>
-            <input type='password' placeholder='****' name='password' className={'form-control'} onChange={this.handlePassChange} id='passwordInput' />
-            {this.state.passwordInValid && <p className='input-err'> ** Password Required</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor='passwordconf'> Confirm</label>
-            <input type='password' placeholder='****' name='passwordconf' className={'form-control'} onChange={this.handlePassConfChange} id='passwordConfInput' />
-            {this.state.passwordConfInValid && <p className='input-err'> ** Pass Confirmation Required</p>}
-          </div>
-
-          <div className="form-group">
-            <button type='submit' className='btn btn-primary' onClick={this.sendSignupFormData} id='createUserBtn'> Sign Up </button>
-          </div>
-        </form>
+            <div className="form-group">
+              <button type='submit' className='btn btn-primary' onClick={this.sendSignupFormData} id='createUserBtn'> Sign Up </button>
+            </div>
+          </form>
+        </div>
+        
       </div>
     )
   }
