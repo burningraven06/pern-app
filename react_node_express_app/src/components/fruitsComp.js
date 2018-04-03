@@ -89,8 +89,8 @@ export default class FruitsComp extends React.Component {
 				}
 
 				{this.state.isLoggedIn && this.state.showSearch && 
-					<div className='col-sm-12 pad-zero mb24'>
-						<div className='col-sm-4 pad-zero'>
+					
+						<div className='col-sm-4 pad-zero mb24'>
 							<h3> Search</h3>
 							<form className='form'>
 								<input type='text' onChange={this.searchFruit} placeholder='Search' className='form-control' />
@@ -105,14 +105,17 @@ export default class FruitsComp extends React.Component {
 								</div>
 							)}
 						</div>
-					</div>	
+	
 				}
 
-				{this.state.isLoggedIn && this.state.showTitle && <h3 className={this.state.showFruitForm? 'text-center': ''}> {this.state.fruitTitle} </h3> }
-				
-				{this.state.isLoggedIn && this.state.showFruitCreateBtn && <button className='btn btn-default' onClick={this.renderFruitForm}> Create</button>}
+				<div className='col-sm-4 col-sm-offset-1'>
+					{this.state.isLoggedIn && this.state.showTitle && <h3> {this.state.fruitTitle} </h3> }
+					
+					{this.state.isLoggedIn && this.state.showFruitCreateBtn && <button className='btn btn-default' onClick={this.renderFruitForm}> Create</button>}
 
-				{this.state.isLoggedIn && this.state.showFruitForm && <FruitCreateComp unrenderForm={this.unrenderFruitForm} receiveFormData={this.receiveFruitFormData} />}
+					{this.state.isLoggedIn && this.state.showFruitForm && <FruitCreateComp unrenderForm={this.unrenderFruitForm} receiveFormData={this.receiveFruitFormData} />}
+
+				</div>
 
 				{this.state.isLoggedIn && this.state.showFruits && 
 					<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>

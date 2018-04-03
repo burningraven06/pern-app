@@ -25,7 +25,7 @@ class CarsComp extends React.Component {
 	}
 
 	componentWillMount() {
-		this.state.isLoggedIn ? this.getAllCarsApiCall() : this.setState({ loginMsg: "Please sign in to use the app"})
+		this.state.isLoggedIn ? this.getAllCarsApiCall() : this.setState({ loginMsg: "Please Log in"})
 	}
 
 	getAllCarsApiCall = () => {
@@ -85,35 +85,38 @@ class CarsComp extends React.Component {
 				}
 
 				{this.state.isLoggedIn && this.state.showSearch && 
-					<div className='col-sm-12 pad-zero mb24'>
-						<div className='col-sm-4 pad-zero'>
-						<h3> Search</h3>
-							<form className='form'> 
-								<input type='text' className='form-control' onChange={this.searchCar} placeholder='Search' />
-							</form>
-							{this.state.showSearchResults && <div style={{marginTop: "24px"}}>
-								{this.state.searchResults.map((car) => (
-									<p> <NavLink to={'/car/' + car.id}> {car.name} </NavLink>  </p>
-								))}
-							</div>}
-						</div>
+					<div className='col-sm-4 pad-zero mb24'>
+					<h3> Search</h3>
+						<form className='form'> 
+							<input type='text' className='form-control' onChange={this.searchCar} placeholder='Search' />
+						</form>
+						{this.state.showSearchResults && <div style={{marginTop: "24px"}}>
+							{this.state.searchResults.map((car) => (
+								<p> <NavLink to={'/car/' + car.id}> {car.name} </NavLink>  </p>
+							))}
+						</div>}
 					</div>
 				}
 
-				{this.state.isLoggedIn && this.state.showTitle && <h3 className={this.state.showCarForm? 'text-center': ''}> {this.state.carTitle} </h3> }
-				
-				{this.state.isLoggedIn && this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCarForm}> Create</button> }
+				<div className='col-sm-4 col-sm-offset-1'>
+					{this.state.isLoggedIn && this.state.showTitle && <h3> {this.state.carTitle} </h3> }
+					
+					{this.state.isLoggedIn && this.state.showCarCreateBtn && <button className='btn btn-default' onClick={this.renderCarForm}> Create</button> }
 
-				{this.state.isLoggedIn && this.state.showCarForm && <CarCreateComp receiveCarData={this.receiveCarFormData} unrenderForm={this.unrenderCarForm} />}
+					{this.state.isLoggedIn && this.state.showCarForm && <CarCreateComp receiveCarData={this.receiveCarFormData} unrenderForm={this.unrenderCarForm} />}
+				
+				</div>
 
 				{this.state.isLoggedIn && this.state.showCars && 
 					<div className='col-md-12' style={{ paddingLeft: 0, marginBottom: 30 }}>
 						{
 							this.state.allCars.map((car) => (
 								<div className='col-md-3 col-sm-3 col-xs-6' key={car.id} style={{ padding: 0 }}>
-									<h4>
-										<NavLink to={"/car/" + car.id} style={{ color: car.color }}> {car.name} </NavLink>
-									</h4>
+									
+										<h4>
+											<NavLink to={"/car/" + car.id} style={{ color: car.color }}> <strong>{car.name} </strong> </NavLink>
+										</h4>
+
 									<p>
 										<i className='fa fa-dollar-sign'> </i> {car.price}
 									</p>

@@ -93,7 +93,7 @@ export default class FruitCreateComp extends React.Component {
 
   render() {
     return (
-      <div className='col-sm-6 col-sm-offset-3'>
+      <div className='mt16'>
         <form>
           <div className='form-group'>
             <label htmlFor='fruitname'> Name</label>
