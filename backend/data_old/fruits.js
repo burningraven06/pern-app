@@ -1,4 +1,3 @@
-const express = require('express');
 const sampleFruitArray = [
    {
       id:1,

@@ -45,7 +45,6 @@ export default class SignupComp extends React.Component{
         this.setState({ allRegEmails: [...this.state.allRegEmails, row.email], allRegUsernames: [...this.state.allRegUsernames, row.username] })
       ))
     }).catch(err => console.log(err))
-    
   }
 
   checkUsernameTaken = (searchQuery) => {

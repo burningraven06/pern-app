@@ -1,7 +1,4 @@
-var express = require('express');
 var db = require('../dbconn_old/connection');
-
-getAllCars = 
 
 getSingleCar = (req, res, next) =>{
    var carID = req.params.id;
