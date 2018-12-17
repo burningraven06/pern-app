@@ -1,8 +1,10 @@
 {
   "name": "react-node-express-tutorial",
   "version": "1.0.0",
-  "description": "",
+  "description": "React and Sequelize Example",
   "main": "server.js",
+  "private": true,
+  "author": "Toufiq (https://twitter.com/burningraven06)",
   "scripts": {
     "client": "cd react_node_express_app && npm start",
     "server": "nodemon server.js",
