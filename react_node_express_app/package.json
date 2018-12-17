@@ -1,7 +1,9 @@
 {
-  "name": "react_node_express_app",
+  "name": "react-node_express-frontend",
   "version": "0.1.0",
   "private": true,
+  "private": true,
+  "author": "Toufiq (https://twitter.com/burningraven06)",
   "dependencies": {
     "axios": "^0.18.0",
     "prop-types": "^15.6.1",
