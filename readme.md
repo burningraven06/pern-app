@@ -1,11 +1,11 @@
-### React Tryout
+### React Tryout (Components, Routing, Data Bindings, State/Props)
 
 #### Backend  - **Express** API (in JS)
 #### Frontend - **React** (in JSX)
 #### Frontend Design - Twitter Bootstrap
-#### Database - Postgres + Sequelize ORM (_Didn't really enjoy Sequelize_)
+#### Database - Postgres + Sequelize ORM
 
-### Extract & Try This
+### Try This
 
 ##### DB Setup
 ``` sh 
